@@ -14,12 +14,22 @@
           <a class="nav-link" href="#">Produk</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Kategori</a>
+          <a class="nav-link" href="#">About Us</a>
         </li>
         <li class="nav-item dropdown">  
           <div class="dropright">
+            
+            @if(!Auth::user())
             <a class="nav-link active dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{ Auth::user()->user_name }}
+            Anda belum login 
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="{{ route('login') }}">Login</a>
+              <a class="dropdown-item" href="{{ route('register') }}">Register</a>
+            </div>
+            @else
+            <a class="nav-link active dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ Auth::user()->user_name }}
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <a class="dropdown-item" href="{{ route('userprofile') }}">Profile</a>
@@ -30,6 +40,8 @@
                 @csrf
               </form>
             </div>
+            @endif
+            
           </div>
         </li>
       </ul>

@@ -26,13 +26,13 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="/merk" class="nav-link">
+          <a href="/admin/categories" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Kategori</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="/satuan" class="nav-link">
+          <a href="/admin/couriers" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Kurir</p>
           </a>

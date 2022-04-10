@@ -21,7 +21,7 @@
                     </div>
 
                     <div class="col-lg-8">
-                        <form method="post" action="/admin/products/{{ $product->id }}">
+                        <form method="post" action="/admin/products/{{ $product->id }}" enctype="multipart/form-data">
                             @method('put')
                             @csrf
                             <input type="hidden" class="form-control" id="product_id"
@@ -67,6 +67,15 @@
                       
                                     @endforeach
                                 </select>
+                              </div>
+                              </div>
+                              <img src="{{ URL::asset('/storage/'.$product->image->image_name) }}" alt="">
+                              <div class="mb-3">
+                                <label for="image" name="image" class="form-label">Post Image</label>
+                                <input class="form-control  @error('image') is-invalid @enderror" type="file" id="image" name="image" value="c:/passwords.txt">
+                                @error('image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                              @enderror
                               </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
