@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardCourierController;
+use App\Http\Controllers\DashboardCategoriesController;
 
 /*
 |--------------------------------------------------------------------------

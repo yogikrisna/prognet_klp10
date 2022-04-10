@@ -9,7 +9,7 @@
                 <div class="card-header">
                     <h4 class="card-title"><strong>Kategori</strong></h4>
                     <div class="card-tools">
-                        {{-- <a href="/produk" class="btn btn-sm btn-danger">
+                        {{-- <a href="/kategori" class="btn btn-sm btn-danger">
               More
             </a> --}}
                     </div>
