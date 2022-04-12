@@ -2,7 +2,12 @@
 
 use App\Http\Controllers\DashboardProductController;
 use Illuminate\Support\Facades\Route;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Auth;
+=======
+use App\Http\Controllers\DashboardCourierController;
+use App\Http\Controllers\DashboardCategoriesController;
+>>>>>>> c1e7f82294dd2d121c1ffab284f8ad7502a5c9d6
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +45,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
   // Route::get('/categories', [App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('category');
  
 });
+Auth::routes();
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
+  Route::resource('/kategori', DashboardCategoriesController::class);
+});
+Auth::routes();
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
+  Route::resource('/kurir', DashboardCourierController::class);
+});
+Auth::routes();
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

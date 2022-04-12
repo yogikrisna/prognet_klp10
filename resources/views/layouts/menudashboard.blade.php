@@ -26,13 +26,21 @@
           </a>
         </li>
         <li class="nav-item">
+<<<<<<< HEAD
           <a href="/admin/categories" class="nav-link">
+=======
+          <a href="/admin/kategori" class="nav-link">
+>>>>>>> c1e7f82294dd2d121c1ffab284f8ad7502a5c9d6
             <i class="far fa-circle nav-icon"></i>
             <p>Kategori</p>
           </a>
         </li>
         <li class="nav-item">
+<<<<<<< HEAD
           <a href="/admin/couriers" class="nav-link">
+=======
+          <a href="/admin/kurir" class="nav-link">
+>>>>>>> c1e7f82294dd2d121c1ffab284f8ad7502a5c9d6
             <i class="far fa-circle nav-icon"></i>
             <p>Kurir</p>
           </a>
