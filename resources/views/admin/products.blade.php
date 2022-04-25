@@ -24,7 +24,6 @@
                                     <th scope="col">Product Name</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Stock</th>
-                                    <th scope="col">Category</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -35,15 +34,6 @@
                                     <td>{{ $detail->product_name }}</td>
                                     <td>{{ $detail->price }}</td>
                                     <td>{{ $detail->stock }}</td>
-                                    <td>
-                                        @foreach($categori as $category)
-                                        @foreach($detail->product_category_details as $dd)
-                                         @if($dd->category_id == $category->id)
-                                            {{$category->category_name}}
-                                         @endif
-                                        @endforeach
-                                        @endforeach
-                                    </td>
                                     <td>
                                         <a href="/admin/products/{{ $detail->id }}"
                                             class="badge bg-info nav-link">Detail</a>
@@ -66,4 +56,7 @@
         </div>
     </div>
 </div>
+
+
+
 @endsection

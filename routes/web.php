@@ -1,13 +1,13 @@
 <?php
 
 use App\Http\Controllers\DashboardProductController;
-use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
-use Illuminate\Support\Facades\Auth;
-=======
-use App\Http\Controllers\DashboardCourierController;
 use App\Http\Controllers\DashboardCategoriesController;
->>>>>>> c1e7f82294dd2d121c1ffab284f8ad7502a5c9d6
+use App\Http\Controllers\DashboardCourierController;
+use App\Http\Controllers\ProductImages;
+use App\Http\Controllers\ProductCategory;
+use App\Models\ProductImage;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +30,7 @@ Auth::routes(['verify' => true]); //verifikasi email
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('landing');
 Route::get('/profile', [App\Http\Controllers\User\ProfileController::class, 'profile'])->name('userprofile');
-
+Route::get('view/productDetail/{id}',[App\Http\Controllers\HomeController::class,'detailProduct'])->name('detail-product');
 Route::get('/admin', [App\Http\Controllers\Admin\LoginControllerAdmin::class, 'loginAdmin'])->name('loginadmin');
 Route::post('actionlogin', [App\Http\Controllers\Admin\LoginControllerAdmin::class, 'action'])->name('actionlogin');
 Route::get('logoutAdmin', [App\Http\Controllers\Admin\LoginControllerAdmin::class, 'logoutAdmin'])->name('logoutadmin');
@@ -49,6 +49,11 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
   Route::resource('/kategori', DashboardCategoriesController::class);
+  Route::post('/imageproduk/{id}/create', [ProductImages::class, 'store']);
+  Route::post('/imageproduk/{id}/delete', [ProductImages::class, 'destroy']);
+  Route::post('/categoryproduk/{id}/create', [ProductCategory::class, 'store']);
+  Route::post('/categoryproduk/{id}/delete', [ProductCategory::class, 'destroy']);
+  
 });
 Auth::routes();
 

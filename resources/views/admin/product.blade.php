@@ -15,7 +15,7 @@
         </div>
         
         <div class="container-fluid">
-            <div class="row justify-content-center">
+            <div class="row">
                 <div class="col-md-8">
                     <article class="my-3">
                         <h2>{{ $detail->product_name }}</h2>
@@ -30,8 +30,12 @@
                             @endforeach
                             @endforeach
                         </p>
+                        <?php $x = 0;?>
                         @foreach($detail->product_images as $dd)
+                        @if($x<=0)
                         <img src="/storage/{{ $dd->image_name }}" class="img-fluid mt-3 alt="{{ $detail->product_name }} ">
+                        <?php $x=$x+1; ?>
+                        @endif
                         @endforeach
                         {!! $detail->description !!}
                     </article>
@@ -60,7 +64,7 @@
         
         <div class="container-fluid">
           <div class="table-responsive col-lg-auto">
-              <a href="#" class="btn btn-primary my-3"> Create New Category Product</a>
+              <a data-toggle="modal" data-target="#addCategoryProduct"  class="btn btn-primary my-3"> Create New Category Product</a>
               <table class="table table-sm">
                   <thead>
                       <tr>
@@ -79,7 +83,7 @@
                         <td>
                           <a href="" class="badge bg-info nav-link">Detail</a>
                           <a href="" class="badge bg-warning nav-link">Edit</a>
-                              <form action="" method="post" class="d-inline">
+                              <form action="/admin/categoryproduk/{{$dd->id}}/delete" method="post" class="d-inline">
                                 @csrf
                                 <button type="submit" class="badge bg-danger nav-link border-0" onclick="return confirm('Yakin Mau Hapus Buku? ')">Delete</button>
                           </form>
@@ -110,7 +114,7 @@
         
         <div class="container-fluid">
           <div class="table-responsive col-lg-auto">
-              <a href="#" class="btn btn-primary my-3"> Create New Image Product</a>
+              <a data-toggle="modal" data-target="#addImageProduct" class="btn btn-primary my-3"> Create New Image Product</a>
               <table class="table table-sm">
                   <thead>
                       <tr>
@@ -127,7 +131,7 @@
                         <td>
                           <a href="" class="badge bg-info nav-link">Detail</a>
                           <a href="" class="badge bg-warning nav-link">Edit</a>
-                              <form action="" method="post" class="d-inline">
+                              <form action="/admin/imageproduk/{{$c->id}}}/delete" method="post" class="d-inline">
                                 @csrf
                                 <button type="submit" class="badge bg-danger nav-link border-0" onclick="return confirm('Yakin Mau Hapus Buku? ')">Delete</button>
                           </form>
@@ -139,6 +143,61 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addImageProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/admin/imageproduk/{{$detail->id}}/create" method="POST" enctype="multipart/form-data">
+          @csrf
+      <div class="modal-body">
+        
+          <div class="col-lg-12 mb-3">
+              <label for="gambar">Image</label>
+              <input type="file" class="form-control-file" id="gambar" name="image" required>
+          </div>       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addCategoryProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/admin/categoryproduk/{{$detail->id}}/create" method="POST" enctype="multipart/form-data">
+          @csrf
+      <div class="modal-body">       
+          <div class="col-lg-12 mb-3">
+              <label for="gambar">Category</label>
+              <input type="text" class="form-control-file" id="gambar" name="category" required>
+          </div>       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
     </div>
   </div>
 </div>

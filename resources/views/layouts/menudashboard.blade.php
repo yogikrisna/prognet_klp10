@@ -10,7 +10,7 @@
           </p>
         </a>
       </li>
-<li class="nav-item has-treeview">
+    <li class="nav-item has-treeview">
       <a href="#" class="nav-link">
         <i class="nav-icon fas fa-folder-open"></i>
         <p>
@@ -26,21 +26,13 @@
           </a>
         </li>
         <li class="nav-item">
-<<<<<<< HEAD
-          <a href="/admin/categories" class="nav-link">
-=======
           <a href="/admin/kategori" class="nav-link">
->>>>>>> c1e7f82294dd2d121c1ffab284f8ad7502a5c9d6
             <i class="far fa-circle nav-icon"></i>
             <p>Kategori</p>
           </a>
         </li>
         <li class="nav-item">
-<<<<<<< HEAD
-          <a href="/admin/couriers" class="nav-link">
-=======
           <a href="/admin/kurir" class="nav-link">
->>>>>>> c1e7f82294dd2d121c1ffab284f8ad7502a5c9d6
             <i class="far fa-circle nav-icon"></i>
             <p>Kurir</p>
           </a>
@@ -88,9 +80,9 @@
     </li> -->
       <li class="nav-item">
        <a href="{{route('logoutadmin')}}" class="nav-link">
-          <i class="nav-icon fas fa-sign-out-alt"></i>
           <p>
             Log Out
+            <i class="right fas fa-angle-left"></i>
           </p>
         </a>
       </li>

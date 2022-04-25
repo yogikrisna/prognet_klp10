@@ -26,6 +26,7 @@ class DashboardProductController extends Controller
         return view('admin.products')->with(compact('title', 'active', 'categori', 'details'));
 
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -131,25 +132,10 @@ class DashboardProductController extends Controller
         ];
         $prod_id = $request->product_id;
 
-        $fotoBuku = $request->product_name . '-'. date('dmY') . '.' .$request->image->extension(); 
-        $request->image->move(public_path('storage'), $fotoBuku);
-
-
-        $validateImage = $request->validate([
-            'image' => 'required|mimes:jpg,png,jpeg',
-        ]);
 
         $validateData = $request->validate($rules);
 
-        ProductImage::where('product_id', '=', $prod_id)->update($validateImage);
-
         Product::where('id', $prod_id)->update($validateData);
-
-        $validateDetails = ([
-            'category_id' => $request->category_id
-        ]);
-
-        ProductCategoryDetail::where('product_id', '=', $prod_id)->update($validateDetails);
 
         return redirect('/admin/products')->with('success', 'Update!');
     }
@@ -162,7 +148,7 @@ class DashboardProductController extends Controller
      */
     public function destroy($id)
     {
-        $detail = ProductCategoryDetail::find($id); 
+        $detail = Product::find($id); 
         $detail->delete();
         // return ProductCategoriesDetails::destroy($detail->id);
 
