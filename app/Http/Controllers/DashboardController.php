@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductCategoriesDetails;
+use App\Models\ProductCategoryDetail;
 use Illuminate\Http\Request;
-use App\Models\Products;
+use App\Models\Product;
 
 class DashboardController extends Controller
 {
@@ -14,7 +14,7 @@ class DashboardController extends Controller
             "title" => "All Products",
             // "posts" => Post::all()
             "active" => "Posts",
-            "details" => ProductCategoriesDetails::get()
+            "details" => ProductCategoryDetail::get()
         ]);
     }
 

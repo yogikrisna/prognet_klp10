@@ -24,7 +24,6 @@
                                     <th scope="col">Product Name</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Stock</th>
-                                    <th scope="col">Category</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -32,14 +31,13 @@
                                 @foreach ($details as $detail)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $detail->product->product_name }}</td>
-                                    <td>{{ $detail->product->price }}</td>
-                                    <td>{{ $detail->product->stock }}</td>
-                                    <td>{{ $detail->category->category_name }}</td>
+                                    <td>{{ $detail->product_name }}</td>
+                                    <td>{{ $detail->price }}</td>
+                                    <td>{{ $detail->stock }}</td>
                                     <td>
                                         <a href="/admin/products/{{ $detail->id }}"
                                             class="badge bg-info nav-link">Detail</a>
-                                        <a href="/admin/products/{{ $detail->product->id }}/edit"
+                                        <a href="/admin/products/{{ $detail->id }}/edit"
                                             class="badge bg-warning nav-link">Edit</a>
                                             <form action="/admin/products/{{ $detail->id }}" method="post" class="d-inline">
                                               @method('delete')
@@ -58,4 +56,7 @@
         </div>
     </div>
 </div>
+
+
+
 @endsection

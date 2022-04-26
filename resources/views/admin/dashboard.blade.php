@@ -3,56 +3,97 @@
 
 <div class="container-fluid">  <!-- table produk -->
   <div class="row">
-    <div class="col">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title"><strong>Produk</strong></h4>
-          {{-- <div class="card-tools">
-            <a href="/produk" class="btn btn-sm btn-danger">
-              More
-            </a>
-          </div> --}}
-        </div>
+    <div class="col-xl-12 col-xxl-12 col-lg-12 col-sm-12">
+      <div id="user-activity" class="card">
         <div class="card-body">
-
-          {{-- isi --}}
-          <div class="container">
-            <div class="row">
-                @foreach ( $details as $detail )
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <div class="position-absolute bg-dark px-3 py-2 text-white"> <a class="text-white text-decoration-none" href="/posts?categories={{ $detail->category->category_name }}">{{ $detail->category->category_name }}</a></div>
-                        <img src="/image-buku/{{ $detail->product->image->image_name }}" class="card-img-top" alt="">
-                        <div class="card-body">
-                          <div>
-                            <h5>{{ $detail->product->product_name }}</h5>
-                          </div>
-                          <div>
-                                <small>
-                                    By <a href="/authors/{{ $detail->product->product_name }}"
-                                        class="text-decoration-none">{{ auth()->user()->admin_name }}</a>
-                                    {{ $detail->product->created_at->diffForHumans() }}
-                                </small>
-                            </div>
-                            <p class="card-text">{{ $detail->product->excerpt }}</p>
-                            <a href="/admin/products/{{ $detail->id }}" class="btn btn-primary">Detail</a>
-                          </div>
-                    </div>
-                </div>
-                @endforeach
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="user" role="tabpanel">
+              <div class="container">
+                <!-- <div class="dropdown bootstrap-select form-control dropup">
+                  <select name="thn" wire:model="thn" id="thn" class="form-control" tabindex="-98">
+                      <option value="2022" selected>2022</option>
+                  </select>
+                </div> -->
+              </div>
+              <figure class="highcharts-figure">
+                <div id="container"></div>
+                <p class="highcharts-description">
+                    Chart di atas akan menampilkan grafik transaksi product selama setahun dengan dua jenis transaksi yaitu kredit (pembelian) dan debit (penjualan).
+                </p>
+              </figure>
             </div>
-        </div>
-
-        {{-- @foreach ( $products as $category )
-          <ul>
-              <li>
-                  <h2>{{ $category->product_name }}</h2>
-              </li>
-          </ul>
-        @endforeach --}}
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+@endsection
+
+@section('scriptjs')
+
+ <!-- Chart -->
+ <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script>
+    
+    var debits = [0,0,0,0,0,0,0,0,0,0,0,0];
+    var kredits = [0,0,0,0,0,0,0,0,0,0,0,0];
+   Highcharts.chart('container', {
+    chart: {
+        type: 'spline'
+    },
+    title: {
+        text: 'Aktivitas Transaksi Product'
+    },
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
+    yAxis: {
+        title: {
+            text: 'Nominal Transaksi'
+        },
+        labels: {
+            formatter: function () {
+                return this.value + 'K';
+            }
+        }
+    },
+    tooltip: {
+        crosshairs: true,
+        shared: true
+    },
+    plotOptions: {
+        spline: {
+            marker: {
+                radius: 4,
+                lineColor: '#666666',
+                lineWidth: 1
+            }
+        }
+    },
+    series: [{
+        name: 'Debit',
+        marker: {
+            symbol: 'square'
+        },
+        data: debits,
+
+    }, {
+        name: 'Kredit',
+        marker: {
+            symbol: 'diamond'
+        },
+        data: kredits
+    }]
+});
+           
+  </script>
+ 
+
 @endsection

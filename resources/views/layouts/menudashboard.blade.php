@@ -10,7 +10,7 @@
           </p>
         </a>
       </li>
-<li class="nav-item has-treeview">
+    <li class="nav-item has-treeview">
       <a href="#" class="nav-link">
         <i class="nav-icon fas fa-folder-open"></i>
         <p>
@@ -80,9 +80,9 @@
     </li> -->
       <li class="nav-item">
        <a href="{{route('logoutadmin')}}" class="nav-link">
-          <i class="nav-icon fas fa-sign-out-alt"></i>
           <p>
             Log Out
+            <i class="right fas fa-angle-left"></i>
           </p>
         </a>
       </li>

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ProductCategories;
-use App\Models\ProductCategoriesDetails;
+use App\Models\ProductCategory;
+use App\Models\ProductCategoryDetails;
 use App\Models\ProductImages;
 use App\Models\Products;
 use Illuminate\Support\Str;
@@ -25,7 +25,7 @@ class DashboardCategoriesController extends Controller
             "title" => "All Posts",
             // "posts" => Post::all()
             "active" => "Posts",
-            "kategoris" => ProductCategories::get()
+            "kategoris" => ProductCategory::get()
         ]);
         
     }
@@ -46,7 +46,7 @@ class DashboardCategoriesController extends Controller
     {
         return view('kategori.show', [
             'title' => 'kategori',
-            'kategoris' => ProductCategories::findOrFail($id)
+            'kategoris' => ProductCategory::findOrFail($id)
         ]);
     }
 
@@ -64,7 +64,7 @@ class DashboardCategoriesController extends Controller
         ]);
 
 
-        $kategori = ProductCategories::create($validateData);
+        $kategori = ProductCategory::create($validateData);
 
         return redirect('/admin/kategori')->with('success', 'new post has been added!');
     }
@@ -84,7 +84,7 @@ class DashboardCategoriesController extends Controller
      */
     public function edit($id)
     {
-        $kategoris = ProductCategories::find($id);
+        $kategoris = ProductCategory::find($id);
         return view('kategori.edit', [
             'category' => $kategoris,
             'title' => 'Edit Product',
@@ -107,14 +107,14 @@ class DashboardCategoriesController extends Controller
 
         $validateData = $request->validate($rules);
 
-        ProductCategories::find($id)->update($validateData);
+        ProductCategory::find($id)->update($validateData);
 
         return redirect('/admin/kategori')->with('success', 'Update!');
     }
 
     public function destroy($id)
     {
-        $kategori = ProductCategories::find($id); 
+        $kategori = ProductCategory::find($id); 
         $kategori->delete();
         // return ProductCategoriesDetails::destroy($kategori->id);
 

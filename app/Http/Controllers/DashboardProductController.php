@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductCategories;
-use App\Models\ProductCategoriesDetails;
-use App\Models\ProductImages;
+use App\Models\ProductCategory;
+use App\Models\ProductCategoryDetail;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
-use App\Models\Products;
+use App\Models\Product;
 use Illuminate\Support\Str;
 
 class DashboardProductController extends Controller
@@ -18,14 +18,15 @@ class DashboardProductController extends Controller
      */
     public function index()
     {
-        return view('admin.products', [
-            "title" => "All Posts",
-            // "posts" => Post::all()
-            "active" => "Posts",
-            "details" => ProductCategoriesDetails::get()
-        ]);
+        $details = Product::with(['product_images', 'product_category_details'])->get();
+        $categori = ProductCategory::get();
+        $title = "All Posts";
+        $active = "Posts";
+        // return $product->product_category_details->id;
+        return view('admin.products')->with(compact('title', 'active', 'categori', 'details'));
 
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -36,7 +37,7 @@ class DashboardProductController extends Controller
     {
         return view('admin.create', [
             'title' => 'Created',
-            'categories' => ProductCategories::all()
+            'categories' => ProductCategory::all()
         ]);
     }
 
@@ -58,12 +59,12 @@ class DashboardProductController extends Controller
         ]);
 
         $fotoBuku = $request->product_name . '-'. date('dmY') . '.' .$request->image->extension(); 
-        $request->image->move(public_path('image-buku'), $fotoBuku);
+        $request->image->move(public_path('storage'), $fotoBuku);
 
 
-        $products = Products::create($validateData);
+        $products = Product::create($validateData);
 
-        ProductImages::create([
+        ProductImage::create([
             'product_id'=> $products->id,
             'image_name' => $fotoBuku,
         ]);
@@ -75,7 +76,7 @@ class DashboardProductController extends Controller
             'category_id' => $request->input('category_id')
         ]);
 
-        ProductCategoriesDetails::create($validateDetails);
+        ProductCategoryDetail::create($validateDetails);
 
         return redirect('/admin/products')->with('success', 'new post has been added!');
     }
@@ -88,10 +89,11 @@ class DashboardProductController extends Controller
      */
     public function show($id)
     {
-        return view('admin.product', [
-            'title' => 'product',
-            'detail' => ProductCategoriesDetails::findOrFail($id)
-        ]);
+        $title = 'Product';
+        $detail = Product::findOrFail($id);
+        $categories = ProductCategory::all();
+        return view('admin.product')->with(compact('title', 'detail', 'categories'));
+            
 
     }
 
@@ -101,12 +103,12 @@ class DashboardProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Products $product)
+    public function edit(Product $product)
     {
         return view('admin.edit', [
             'product' => $product,
             'title' => 'Edit Product',
-            'categories' => ProductCategories::all()
+            'categories' => ProductCategory::all()
         ]);
     }
 
@@ -128,18 +130,12 @@ class DashboardProductController extends Controller
             'weight' => 'required',
             'description' => 'required'
         ];
-
         $prod_id = $request->product_id;
+
 
         $validateData = $request->validate($rules);
 
-        Products::where('id', $prod_id)->update($validateData);
-
-        $validateDetails = ([
-            'category_id' => $request->category_id
-        ]);
-
-        ProductCategoriesDetails::where('product_id', '=', $prod_id)->update($validateDetails);
+        Product::where('id', $prod_id)->update($validateData);
 
         return redirect('/admin/products')->with('success', 'Update!');
     }
@@ -152,7 +148,7 @@ class DashboardProductController extends Controller
      */
     public function destroy($id)
     {
-        $detail = ProductCategoriesDetails::find($id); 
+        $detail = Product::find($id); 
         $detail->delete();
         // return ProductCategoriesDetails::destroy($detail->id);
 
