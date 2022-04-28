@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Pustok - Book Store </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/plugins.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/main.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../assets/image/favicon.ico">
+    <link rel="stylesheet" type="text/css" media="screen" href={{asset('assets/css/plugins.css')}} />
+    <link rel="stylesheet" type="text/css" media="screen" href={{asset('assets/css/main.css')}} />
+    <link rel="shortcut icon" type="image/x-icon" href= {{asset('assets/image/favicon.ico')}}>
 </head>
 
 <body>
@@ -670,9 +670,10 @@
         </div>
     
     <!-- Use Minified Plugins Version For Fast Page Load -->
-    <script src="../assets/js/plugins.js"></script>
-    <script src="../assets/js/ajax-mail.js"></script>
-    <script src="../assets/js/custom.js"></script>
+  
+    <script src=  {{asset('assets/js/plugins.js')}}></script>
+    <script src=  {{asset('assets/js/ajax-mail.js')}}></script>
+    <script src= {{asset('assets/js/custom.js')}}></script>
 </body>
 
 </html>

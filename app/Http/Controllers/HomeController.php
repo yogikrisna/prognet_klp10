@@ -31,12 +31,12 @@ class HomeController extends Controller
         // $datas =DB::Table('products')->join('product_images','products.id','=','product_images.product_id')
         // ->select('products.*','product_images.image_name');
       
-        return view('homepage.index')->with(compact('data', 'datas'));
+        return view('transaksi.home')->with(compact('data', 'datas'));
     }
 
     public function detailProduct($id){
         $data = Product::find($id);
         $gambar_product = DB::Table('product_images')->where('product_id',$id)->first();
-        return view('homepage.product',compact('data','gambar_product'));
+        return view('transaksi.product-details',compact('data','gambar_product'));
     }
 }

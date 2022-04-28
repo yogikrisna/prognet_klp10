@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardProductController;
 use App\Http\Controllers\DashboardCategoriesController;
 use App\Http\Controllers\DashboardCourierController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\ProductImages;
 use App\Http\Controllers\ProductCategory;
 use App\Models\ProductImage;
@@ -64,3 +65,15 @@ Auth::routes();
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/cobahome', [App\Http\Controllers\TransaksiController::class, 'index']);
+// Route::get('/cobahome', function () {
+//   return view('transaksi.home');
+// });
+Route::get('/pesan/{id}', [App\Http\Controllers\TransaksiController::class, 'pesan']);
+Route::get('/cart', function () {
+  return view('transaksi.transaksi-cart');
+});
+Route::get('/checkout', function () {
+  return view('transaksi.detail-trans');
+});
