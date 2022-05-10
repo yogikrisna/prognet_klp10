@@ -17,40 +17,40 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call(LocationSeeder::class);
 
-        Admin::create([
-            'admin_name' => 'Dewa Adhigamika',
-            'username' => 'fogikkun',
-            'password' => bcrypt('12345678'),
-            'admin_address' => 'Kuta Bali',
-            'phone' => '081236227037'
-        ]);
+        // Admin::create([
+        //     'admin_name' => 'Dewa Adhigamika',
+        //     'username' => 'fogikkun',
+        //     'password' => bcrypt('12345678'),
+        //     'admin_address' => 'Kuta Bali',
+        //     'phone' => '081236227037'
+        // ]);
 
-        ProductCategories::create([
-            'category_name' => 'Fiksi'
-        ]);
+        // ProductCategories::create([
+        //     'category_name' => 'Fiksi'
+        // ]);
 
-        ProductCategories::create([
-            'category_name' => 'Komedi'
-        ]);
+        // ProductCategories::create([
+        //     'category_name' => 'Komedi'
+        // ]);
 
-        ProductCategories::create([
-            'category_name' => 'Horor'
-        ]);
+        // ProductCategories::create([
+        //     'category_name' => 'Horor'
+        // ]);
 
-        ProductCategories::create([
-            'category_name' => 'Drama'
-        ]);
+        // ProductCategories::create([
+        //     'category_name' => 'Drama'
+        // ]);
 
-        ProductCategories::create([
-            'category_name' => 'Medis'
-        ]);
+        // ProductCategories::create([
+        //     'category_name' => 'Medis'
+        // ]);
 
-        ProductCategories::create([
-            'category_name' => 'Sejarah'
-        ]);
+        // ProductCategories::create([
+        //     'category_name' => 'Sejarah'
+        // ]);
 
-        Products::factory(20)->create();
+        // Products::factory(20)->create();
     }
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zxx">
-
+<
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href={{asset('assets/css/plugins.css')}} />
     <link rel="stylesheet" type="text/css" media="screen" href={{asset('assets/css/main.css')}} />
     <link rel="shortcut icon" type="image/x-icon" href= {{asset('assets/image/favicon.ico')}}>
+    @livewireStyles
 </head>
 
 <body>
@@ -237,12 +238,12 @@
                                             </div>
                                             <div class=" single-cart-block ">
                                                 <div class="btn-block">
-                                                    <a href="cart.html" class="btn">View Cart <i
+                                                    <a href="users/cart" class="btn">View Cart <i
                                                             class="fas fa-chevron-right"></i></a>
                                                     <a href="checkout.html" class="btn btn--primary">Check Out <i
                                                             class="fas fa-chevron-right"></i></a>
                                                 </div>
-                                            </div>
+                                            </div> 
                                         </div>
                                     </div>
                                 </div>
@@ -674,6 +675,7 @@
     <script src=  {{asset('assets/js/plugins.js')}}></script>
     <script src=  {{asset('assets/js/ajax-mail.js')}}></script>
     <script src= {{asset('assets/js/custom.js')}}></script>
+    @livewireScripts
 </body>
 
 </html>

@@ -39,6 +39,53 @@
                         @endforeach
                         {!! $detail->description !!}
                     </article>
+                    <h1 class="card-title"><strong>Product Discount</strong></h1>
+                    <div class="card">
+                        <div class="table">
+                            <table class="table table-striped table-bordered center">
+                                <tbody>
+                                @forelse($data as $discount)
+                                    <tr>
+                                        <th style="width:25%;">Discount Precentage</th>
+                                        <td>{{ $discount->percentage }}{{"%"}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Start Date</th>
+                                        <td>{{ $discount->start }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>End Date</th>
+                                        <td>{{ $discount->end }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Action</th>
+                                        <td>
+                                            <a class="btn btn-primary" href="/admin/discount/{{ $discount->id }}/edit" role="button" data-toggle="tooltip" data-placement="bottom" title="Edit Discount" onclick="return confirm('Are you sure you want to edit this discount?')">
+                                                <i class="align-middle icon-white" data-feather="edit-2"></i>
+                                            </a>
+                                            <form action="{{ route('discount.destroy', $discount->id) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button class="btn btn-danger" type="submit" data-toggle="tooltip" data-placement="bottom" title="Delete Discount" onclick="return confirm('Are you sure you want to delete this discount?')">
+                                                    <i class="align-middle" data-feather="trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @empty
+                                        <div class="col text-center">
+                                            <h6 class="text-center">No Discount Added</h6>
+                                            <button class="btn btn-success" onclick="location.href='/admin/product/{{ $product->slug }}/add-discount'" data-toggle="tooltip" data-placement="bottom" title="Add Product">
+                                                <i class="fas fa-plus"></i>
+                                                Add Discount
+                                            </button>
+                                        </div>
+                                        
+                                @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <div class="my-3 fs-5">
                         <a href="/admin/products"> Back to Products</a>
                     </div>

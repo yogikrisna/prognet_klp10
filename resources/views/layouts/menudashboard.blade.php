@@ -32,7 +32,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="/admin/kurir" class="nav-link">
+          <a href="/admin/discount" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Kurir</p>
           </a>

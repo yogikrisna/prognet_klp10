@@ -37,6 +37,6 @@ class HomeController extends Controller
     public function detailProduct($id){
         $data = Product::find($id);
         $gambar_product = DB::Table('product_images')->where('product_id',$id)->first();
-        return view('transaksi.product-details',compact('data','gambar_product'));
+        return view('transaksi.checkout.product-details',compact('data','gambar_product'));
     }
 }

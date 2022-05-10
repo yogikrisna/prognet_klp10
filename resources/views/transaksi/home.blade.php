@@ -124,7 +124,7 @@ Deal of the day
             <div class="single-slide">
                 <div class="product-card">
                     <div class="product-header">
-                        <a href="" class="author">
+                        <a href="/detailcart" class="author">
                             Ypple
                         </a>
                         <h3><a href="product-details.html">{{ $barang->product_name }}
@@ -143,7 +143,7 @@ Deal of the day
                             @endforeach
                                 </a>
                                 <div class="hover-btns">
-                                    <a href="/pesan/{{ $barang->id }}" class="single-btn">
+                                    <a href="/users/addcart-{{ $barang->id }}" class="single-btn">
                                         <i class="fas fa-shopping-basket"></i>
                                     </a>
                                     <a href="{{route('detail-product', $barang->id)}}" 
