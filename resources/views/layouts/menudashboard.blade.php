@@ -32,9 +32,15 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="/admin/discount" class="nav-link">
+          <a href="/admin/transactions" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Kurir</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/admin/transactions" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Transaksi</p>
           </a>
         </li>
         <!-- <li class="nav-item">

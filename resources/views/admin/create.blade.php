@@ -8,9 +8,6 @@
         <div class="card-header">
           <h4 class="card-title"><strong>Produk</strong></h4>
           <div class="card-tools">
-            {{-- <a href="/produk" class="btn btn-sm btn-danger">
-              More
-            </a> --}}
           </div>
         </div>
         <div class="container-fluid">

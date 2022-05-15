@@ -9,11 +9,7 @@
           <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="user" role="tabpanel">
               <div class="container">
-                <!-- <div class="dropdown bootstrap-select form-control dropup">
-                  <select name="thn" wire:model="thn" id="thn" class="form-control" tabindex="-98">
-                      <option value="2022" selected>2022</option>
-                  </select>
-                </div> -->
+               
               </div>
               <figure class="highcharts-figure">
                 <div id="container"></div>

@@ -24,7 +24,7 @@ class DashboardProductController extends Controller
         $details = Product::with(['product_images', 'product_category_details'])->get();
         $categori = ProductCategory::get();
         $title = "All Posts";
-        $active = "Posts";
+        $active = "Posts"; 
         // return $product->product_category_details->id;
         return view('admin.products')->with(compact('title', 'active', 'categori', 'details'));
        

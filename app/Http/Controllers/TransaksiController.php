@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Cart;
+use App\Models\User;
 use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\ProductCategory;
@@ -17,8 +18,23 @@ class TransaksiController extends Controller
   
     public function index()
     {
-        return view('transaksi.checkout.detail-trans');
+        // $transaksi = Transaksi::with('user')->where(['user_id', '=', Auth::user()->id])->get();
+        // // $produk = TransaksiDetail::with('product')->where(['user_id', '=', Auth::user()->id])->get();
+        // return view('transaksi.mytransaksi', compact('transaksi'));
+        $user_id = Auth::id();
+        $transaksi = Transaksi::with('user')->where('user_id', $user_id)->orderBy('created_at', 'DESC')->get();
+        return view('transaksi.mytransaksi', compact('transaksi'));
     }
+    public function adminIndex()
+    {
+        $transactions = Transaksi::with('user')->orderBy('created_at', 'DESC')->get();
+        $title = "All Posts";
+        $active = "Posts"; 
+        // return $transactions;
+        return view('transaksi.admin.transaksi', compact('title', 'active','transactions'));
+      
+    }
+
 
     public function detail($id){
          $title ="Kelompok 21 - Toko Sepatu";
@@ -142,54 +158,106 @@ class TransaksiController extends Controller
         return redirect()->route('transaksi.detail', $transaksi->id);
     }
     
-    // $kategori = ProductCategory::all();  
-    // return redirect()->route('transaksi.detail', $transaksi->id);
-    // return redirect()->route('checkout.detail', $transaksi->id)->with('success', "Anda telah berhasil melakukan checkout untuk pesanan Anda! Silahkan melakukan pembayaran sebeluh batas terakhir waktu pembayaran!!!");
-    
-    
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Transaksi  $transaksi
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Transaksi $transaksi)
+   
+    public function adminDetail($id)
     {
-        //
+        $transactions = Transaksi::where('id', $id)->get();
+        return view('transaksi.admin.detail', compact('transactions', 'id'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Transaksi  $transaksi
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Transaksi $transaksi)
+    public function adminApprove($id)
     {
-        //
+        Transaksi::where('id', $id)
+                ->update([
+                    'status' => 'verified'
+                ]);
+
+        $transaction = Transaksi::where('id', $id)->first();
+        $transaction_detail = TransaksiDetail::where('transaction_id', $id)->get();
+        $user = User::find($transaction->user_id);
+
+        foreach ($transaction_detail as $detail) {
+            $product = Product::where('id', $detail->product_id)->first();
+            Product::where('id', $detail->product_id)
+                ->update([
+                    'stock' => $product->stock - $detail->qty
+            ]);
+        }
+
+
+        return redirect('/admin/transactions');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Transaksi  $transaksi
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Transaksi $transaksi)
+    public function adminDelivered($id)
     {
-        //
+        $transaction = Transaksi::where('id', $id)->first();
+        $user = User::find($transaction->user_id);
+        Transaksi::where('id', $id)
+                ->update([
+                    'status' => 'delivered'
+                ]);   
+
+
+        return redirect('/admin/transactions');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Transaksi  $transaksi
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Transaksi $transaksi)
+    public function adminCanceled($id)
     {
-        //
+        $transaction = Transaksi::where('id', $id)->first();
+        $user = User::find($transaction->user_id);
+        Transaksi::where('id', $id)
+                ->update([
+                    'status' => 'canceled'
+                ]);
+                  
+        return redirect('/admin/transactions');
+    }
+
+    public function adminExpired($id)
+    {
+        $transaction = Transaksi::where('id', $id)->first();
+        $user = User::find($transaction->user_id);
+        Transaksi::where('id', $id)
+                ->update([
+                    'status' => 'expired'
+                ]);
+
+        return redirect('/admin/transactions');
+    }
+
+    public function transactionsTimeout($id)
+    {
+        $transaction = Transaksi::where('id', $id)->first();
+        $user = User::find($transaction->user_id);
+        Transaksi::where('id', $id)
+                ->update([
+                    'status' => 'expired'
+                ]);
+        return redirect('/users/cartTransaksi');
+    }
+
+    public function userSuccess($id)
+    {
+        $transaction = Transaksi::where('id', $id)->first();
+        $user = User::find($transaction->user_id);
+
+        Transaksi::where('id', $id)
+                ->update([
+                    'status' => 'success'
+                ]);
+    return redirect('/users/cartTransaksi');
+    }
+
+    public function userCanceled($id)
+    {
+        $transaction = Transaksi::where('id', $id)->first();
+        $user = User::find($transaction->user_id);
+
+        Transaksi::where('id', $id)
+                ->update([
+                    'status' => 'canceled'
+                ]);
+        return redirect('/users/cartTransaksi');
+       
     }
 }

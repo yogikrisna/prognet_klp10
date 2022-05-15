@@ -114,7 +114,7 @@ function rupiah ($angka) {
                 </div>
             </div>
             <hr style="margin-top:50px">
-            @if($transaksi->proof_of_payment != NULL && $transaksi->is_review == 0)
+            @if($transaksi->status == 'success' && $transaksi->is_review == 0)
             <div class="row" style="margin-top:50px;">
                 <div class="section-content">
                     <h2 class="section-content__title text-center">Reviews</h2>

@@ -62,12 +62,16 @@ Route::middleware('auth:web')->prefix('users')->group(function () {
   Route::get('myTransaksi/{id}', [TransaksiController::class, 'detail'])->name('transaksi.detail');
   Route::post('upload-pembayaran-{id}', [TransaksiController::class, 'upload_pembayaran'])->name('upload.pembayaran');
   Route::post('upload-review-{id}', [TransaksiController::class, 'upload_review_user'])->name('upload.review.user');
+  Route::get('/cartTransaksi', [TransaksiController::class, 'index'])->name('index.transaksi');
+  Route::put('/success/{id}', [TransaksiController::class,'userSuccess'])->name('user.success');
+  Route::put('/userCanceled/{id}',[TransaksiController::class,'userCanceled'])->name('user.canceled');
 });
-// Route::get('/addcart/{id}',[App\Http\Controllers\CartController::class,'addcart'])->name('add-cart');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'dashboard'])->name ('dashboard');
+  
   });
+  // Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
   Route::resource('/products', DashboardProductController::class);
@@ -86,6 +90,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
   Route::post('/product/{product}/add-discount', [DashboardProductController::class, 'createDiscount']);
   Route::get('/product/{product}/edit-discount', [DashboardProductController::class, 'editDiscount']);
   Route::put('/product/{product}/edit-discount', [DashboardProductController::class, 'updateDiscount']);
+ 
+ 
 });
 Auth::routes();
 
@@ -99,4 +105,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/cobahome', [App\Http\Controllers\TransaksiController::class, 'index']);
 
-// Route::get('/pesan/{id}', [App\Http\Controllers\TransaksiController::class, 'pesan']);
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
+//admin
+Route::get('/transactions', [TransaksiController::class,'adminIndex']);
+Route::get('/transactions/detail/{id}', [TransaksiController::class,'adminDetail'])->name('transactions.detail');
+Route::put('/approve/{id}', [TransaksiController::class,'adminApprove'])->name('transactions.approve');
+Route::put('/delivered/{id}', [TransaksiController::class,'adminDelivered'])->name('transactions.delivered');
+Route::put('/canceled/{id}', [TransaksiController::class,'adminCanceled'])->name('transactions.canceled');
+Route::put('/expired/{id}', [TransaksiController::class,'adminExpired'])->name('transactions.expired');
+Route::put('/timeout/{id}',[TransaksiController::class,'transactionsTimeout'])->name('transactions.timeout');
+});
+Auth::routes();
