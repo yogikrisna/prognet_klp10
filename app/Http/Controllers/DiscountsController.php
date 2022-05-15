@@ -6,7 +6,7 @@ use App\Models\discounts;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-class DiscountController extends Controller
+class DiscountsController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -4,10 +4,10 @@ use App\Http\Controllers\DashboardProductController;
 use App\Http\Controllers\DashboardCategoriesController;
 use App\Http\Controllers\DashboardCourierController;
 use App\Http\Controllers\TransaksiController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\DiscountsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductImages;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductCategory;
 use App\Models\ProductImage;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
+|p
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
@@ -54,29 +54,14 @@ Route::prefix('admin/discount')->group(function () {
 Route::middleware('auth:web')->prefix('users')->group(function () {
   Route::get('/home', [HomeController::class, 'index'])->name('index');
   Route::get('/home/product/{product}', [HomeController::class, 'show']);
-  Route::get('/shop', [UserController::class, 'shop']);
-  Route::get('/blog', [UserController::class, 'blog']);
-  Route::get('/contact', [UserController::class, 'contact']);
   Route::get('/cart', [CartController::class, 'detailcart'])->name('cart.index');
   Route::get('/addcart-{id}',[CartController::class, 'addcart']);
-  Route::get('/buynow/{id}',[TransactionsController::class, 'buynow']);
-  Route::get('/checkout', [TransaksiController::class, 'index']);
-  // Route::post('/checkout', [TransactionsController::class, 'checkout'])->name('checkout');
-  Route::get('/kota/{id}', [TransactionsController::class, 'getkota']);
-  Route::get('/ongkir', [TransactionsController::class, 'getOngkir']);
-  Route::get('/kota/service', [TransactionsController::class, 'getService']);
-  Route::post('/transaction/checkout', [TransactionsController::class, 'insertcheckout']);
-  Route::get('/viewpayment/{id}', [TransactionsController::class, 'invoice']);
-  Route::get('/invoice/{id}', [TransactionsController::class, 'getInvoice']);
-  Route::get('/timeout', [TransactionsController::class, 'timeout']);
-  Route::post('/review', [TransactionsController::class, 'reviewpage']);
-  Route::post('/editreview', [TransactionsController::class, 'revieweditpage']);
-  Route::patch('/transactions/cancel/{id}', [TransactionsController::class, 'cancel_transaction']);
-  Route::patch('/transactions/success/{id}', [TransactionsController::class, 'confirmation']);
-  Route::patch('/upload/{id}', [TransactionsController::class, 'uploadPOP']);
-  Route::patch('/review/store', [TransactionsController::class, 'review']);
-  Route::patch('/review/edit', [TransactionsController::class, 'reviewedit']);
-  Route::get('/image/proof_of_payment/{id}', [TransactionsController::class, 'image']);
+  Route::get('/checkout', [TransaksiController::class, 'checkout'])->name('checkout');
+  Route::post('/checkout/confirm', [TransaksiController::class, 'store'])->name('checkout.confirm');
+  Route::get('myTransaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
+  Route::get('myTransaksi/{id}', [TransaksiController::class, 'detail'])->name('transaksi.detail');
+  Route::post('upload-pembayaran-{id}', [TransaksiController::class, 'upload_pembayaran'])->name('upload.pembayaran');
+  Route::post('upload-review-{id}', [TransaksiController::class, 'upload_review_user'])->name('upload.review.user');
 });
 // Route::get('/addcart/{id}',[App\Http\Controllers\CartController::class,'addcart'])->name('add-cart');
 
@@ -97,10 +82,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
   Route::post('/imageproduk/{id}/delete', [ProductImages::class, 'destroy']);
   Route::post('/categoryproduk/{id}/create', [ProductCategory::class, 'store']);
   Route::post('/categoryproduk/{id}/delete', [ProductCategory::class, 'destroy']);
-  Route::get('/product/{product}/add-discount', [DashboardProductsController::class, 'discount']);
-  Route::post('/product/{product}/add-discount', [DashboardProductsController::class, 'createDiscount']);
-  Route::get('/product/{product}/edit-discount', [DashboardProductsController::class, 'editDiscount']);
-  Route::put('/product/{product}/edit-discount', [DashboardProductsController::class, 'updateDiscount']);
+  Route::get('/product/{product}/add-discount', [DashboardProductController::class, 'discount']);
+  Route::post('/product/{product}/add-discount', [DashboardProductController::class, 'createDiscount']);
+  Route::get('/product/{product}/edit-discount', [DashboardProductController::class, 'editDiscount']);
+  Route::put('/product/{product}/edit-discount', [DashboardProductController::class, 'updateDiscount']);
 });
 Auth::routes();
 
