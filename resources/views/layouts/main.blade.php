@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href={{asset('assets/css/plugins.css')}} />
     <link rel="stylesheet" type="text/css" media="screen" href={{asset('assets/css/main.css')}} />
     <link rel="shortcut icon" type="image/x-icon" href= {{asset('assets/image/favicon.ico')}}>
+
     @livewireStyles
 </head>
 
@@ -21,10 +22,10 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3 ">
                             <a href="index.html" class="site-brand">
-                                <img src="../assets/image/logo.png" alt="">
+                                <img src="{{asset('assets/image/logo.png')}}"" alt="">
                             </a>
                         </div>
-                        <div class="col-lg-3">
+                        {{-- <div class="col-lg-3">
                             <div class="header-phone ">
                                 <div class="icon">
                                     <i class="fas fa-headphones-alt"></i>
@@ -34,19 +35,19 @@
                                     <p class="font-weight-bold number">+01-202-555-0181</p>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
+                        </div> --}}
+                        {{-- <div class="col-lg-6">
                             <div class="main-navigation flex-lg-right">
-                                <ul class="main-menu menu-right ">
-                                    <li class="menu-item has-children">
+                                <ul class="main-menu menu-right "> --}}
+                                    {{-- <li class="menu-item has-children">
                                         <a href="javascript:void(0)">Home <i
                                                 class="fas fa-chevron-down dropdown-arrow"></i></a>
                                         <ul class="sub-menu">
                                             <li> <a href="index.html">Home One</a></li>
                                         </ul>
-                                    </li>
+                                    </li> --}}
                                     <!-- Shop -->
-                                    <li class="menu-item has-children mega-menu">
+                                    {{-- <li class="menu-item has-children mega-menu">
                                         <a href="javascript:void(0)">shop <i
                                                 class="fas fa-chevron-down dropdown-arrow"></i></a>
                                     </li>
@@ -57,9 +58,9 @@
                                         <ul class="sub-menu">
                                             <li><a href="cart.html">Cart</a></li>
                                         </ul>
-                                    </li>
+                                    </li> --}}
                                     <!-- Blog -->
-                                    <li class="menu-item has-children mega-menu">
+                                    {{-- <li class="menu-item has-children mega-menu">
                                         <a href="javascript:void(0)">Blog <i
                                                 class="fas fa-chevron-down dropdown-arrow"></i></a>
                                         <ul class="sub-menu three-column">
@@ -72,14 +73,14 @@
                                                 </ul>
                                             </li>
                                         </ul>
-                                    </li>
-                                    <li class="menu-item">
+                                    </li> --}}
+                                    {{-- <li class="menu-item">
                                         <a href="contact.html">Contact</a>
-                                    </li>
-                                </ul>
+                                    </li> --}}
+                                {{-- </ul>
                             </div>
-                        </div>
-                    </div>
+                        </div> --}}
+                    </div> 
                 </div>
             </div>
             <div class="header-bottom pb--10">
@@ -206,8 +207,8 @@
                             <div class="main-navigation flex-lg-right">
                                 <div class="cart-widget">
                                     <div class="login-block">
-                                        <a href="login-register.html" class="font-weight-bold">Login</a> <br>
-                                        <span>or</span><a href="login-register.html">Register</a>
+                                        <a href="/login" class="font-weight-bold">Login</a> <br>
+                                        <span>or</span><a href="/register">Register</a>
                                     </div>
                                     <div class="cart-block">
                                         <div class="cart-total">
@@ -224,7 +225,7 @@
                                         </div>
                                         <div class="cart-dropdown-block">
                                             <div class=" single-cart-block ">
-                                                <div class="cart-product">
+                                                {{-- <div class="cart-product">
                                                     <a href="product-details.html" class="image">
                                                         <img src="image/products/cart-product-1.jpg" alt="">
                                                     </a>
@@ -235,13 +236,13 @@
                                                         <p class="price"><span class="qty">1 ×</span> £87.34</p>
                                                         <button class="cross-btn"><i class="fas fa-times"></i></button>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                             <div class=" single-cart-block ">
                                                 <div class="btn-block">
                                                     <a href="users/cart" class="btn">View Cart <i
                                                             class="fas fa-chevron-right"></i></a>
-                                                    <a href="checkout.html" class="btn btn--primary">Check Out <i
+                                                    <a href="/users/cartTransaksi" class="btn btn--primary">Transaksi <i
                                                             class="fas fa-chevron-right"></i></a>
                                                 </div>
                                             </div> 
@@ -263,7 +264,7 @@
                                 <img src="image/logo.png" alt="">
                             </a>
                         </div>
-                        <div class="col-md-5 order-3 order-md-2">
+                        {{-- <div class="col-md-5 order-3 order-md-2">
                             <nav class="category-nav   ">
                                 <div>
                                     <a href="javascript:void(0)" class="category-trigger"><i
@@ -386,7 +387,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </header>
@@ -407,7 +408,7 @@
                     <!-- mobile menu start -->
                     <div class="mobile-navigation">
                         <!-- mobile menu navigation start -->
-                        <nav class="off-canvas-nav">
+                        {{-- <nav class="off-canvas-nav">
                             <ul class="mobile-menu main-mobile-menu">
                                 <li class="menu-item-has-children">
                                     <a href="#">Home</a>
@@ -509,11 +510,11 @@
                                 </li>
                                 <li><a href="contact.html">Contact</a></li>
                             </ul>
-                        </nav>
+                        </nav> --}}
                         <!-- mobile menu navigation end -->
                     </div>
                     <!-- mobile menu end -->
-                    <nav class="off-canvas-nav">
+                    {{-- <nav class="off-canvas-nav">
                         <ul class="mobile-menu menu-block-2">
                             <li class="menu-item-has-children">
                                 <a href="#">Currency - USD $ <i class="fas fa-angle-down"></i></a>
@@ -664,7 +665,7 @@
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div class="container">

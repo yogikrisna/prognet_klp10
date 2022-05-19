@@ -54,23 +54,27 @@
                                     <a href="myTransaksi/{{ $item->id }}"
                                     class="badge bg-info nav-link">Bayar </a>
                                     @endif
-                                    @if (($item->status == 'success')  && ($item->is_review == 0))
-                                    <a href="myTransaksi/{{ $item->id }}"
-                                    class="badge bg-info nav-link">Review </a>
-                                    @endif
-                                    @if (($item->status == 'success')  && ($item->is_review !=NULL))
-                                   <p>Pesanan Telah di terima</p>
-                                    @endif
+          
+
                                     @if ($item->status == 'delivered')
                                     <form action="success/{{$item->id}}" method="POST">
                                             {{ method_field('PUT') }}
                                             {{ csrf_field() }}
-                                            <button type="submit" class="badge bg-warning nav-link">Diterima
+                                            <button type="submit" name="success" class="badge bg-warning nav-link">Diterima
                                             </button>
                                     </form>
                                     @endif
+                                    
+                                    @if (($item->status == 'success')  && ($item->is_review == 0))
+                                    <a href="myTransaksi/{{ $item->id }}"
+                                    class="badge bg-info nav-link">Review </a>
+                                    @endif
+
+                                    @if (($item->status == 'success')  && ($item->is_review !=NULL))
+                                   <p>Pesanan Telah di terima</p>
+                                    @endif
                                     @if (($item->status == 'unverified' && $item->proof_of_payment == NULL) || (($item->status == 'unverified') && (isset($item->proof_of_payment))) || ($item->status == 'verified'))
-                                            <form action="users/userCanceled/{{$item->id}}" method="POST">
+                                            <form action="userCanceled/{{$item->id}}" method="POST">
                                                     {{ method_field('PUT') }}
                                                     {{ csrf_field() }}
                                                     <button type="submit" name="canceled" class="badge bg-warning nav-link">Cancel

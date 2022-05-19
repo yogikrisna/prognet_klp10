@@ -60,7 +60,7 @@ Home Features Section
                     </div>
                     <div class="text">
                         <h5>Free Shipping Item</h5>
-                        <p> Orders over $500</p>
+                        {{-- <p> Orders over $500</p> --}}
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@ Home Features Section
                     </div>
                     <div class="text">
                         <h5>Money Back Guarantee</h5>
-                        <p>100% money back</p>
+                        {{-- <p>100% money back</p> --}}
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@ Home Features Section
                     </div>
                     <div class="text">
                         <h5>Cash On Delivery</h5>
-                        <p>Lorem ipsum dolor amet</p>
+                        {{-- <p>Lorem ipsum dolor amet</p> --}}
                     </div>
                 </div>
             </div>
@@ -93,7 +93,7 @@ Home Features Section
                     </div>
                     <div class="text">
                         <h5>Help & Support</h5>
-                        <p>Call us : + 0123.4567.89</p>
+                        {{-- <p>Call us : + 0123.4567.89</p> --}}
                     </div>
                 </div>
             </div>
@@ -143,7 +143,7 @@ Deal of the day
                             @endforeach
                                 </a>
                                 <div class="hover-btns">
-                                    <a href="/users/addcart-{{ $barang->id }}" class="single-btn">
+                                    <a href="/users/addcart/{{ $barang->id }}" class="single-btn">
                                         <i class="fas fa-shopping-basket"></i>
                                     </a>
                                     <a href="{{route('detail-product', $barang->id)}}" 

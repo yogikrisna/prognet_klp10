@@ -56,6 +56,7 @@ Route::middleware('auth:web')->prefix('users')->group(function () {
   Route::get('/home/product/{product}', [HomeController::class, 'show']);
   Route::get('/cart', [CartController::class, 'detailcart'])->name('cart.index');
   Route::get('/addcart-{id}',[CartController::class, 'addcart']);
+  Route::get('/cart/{product_id}', [CartController::class, 'destroy'])->name('cart.delete');
   Route::get('/checkout', [TransaksiController::class, 'checkout'])->name('checkout');
   Route::post('/checkout/confirm', [TransaksiController::class, 'store'])->name('checkout.confirm');
   Route::get('myTransaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
@@ -101,9 +102,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
 Auth::routes();
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/cobahome', [App\Http\Controllers\TransaksiController::class, 'index']);
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
 //admin

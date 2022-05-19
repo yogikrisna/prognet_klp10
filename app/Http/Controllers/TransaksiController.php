@@ -245,6 +245,8 @@ class TransaksiController extends Controller
                 ->update([
                     'status' => 'success'
                 ]);
+
+
     return redirect('/users/cartTransaksi');
     }
 
@@ -257,6 +259,7 @@ class TransaksiController extends Controller
                 ->update([
                     'status' => 'canceled'
                 ]);
+        
         return redirect('/users/cartTransaksi');
        
     }
