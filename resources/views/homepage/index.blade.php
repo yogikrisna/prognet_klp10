@@ -28,10 +28,10 @@
           <div class="row space-db-lg--60 space-db--30">
           @foreach($datas as $data)
             <div class="col-lg-4 col-md-6 mb-lg--60 mb--30">
-              <div class="blog-card card-style-grid">
+              <div class="blog-card card-style-grid text-center">
                 <a href="blog-details.html" class="image d-block">
                   @foreach($data->product_images as $cc)
-                  <img src="/storage/{{$cc->image_name}}" alt="" style="height:500px;">
+                  <img src="/storage/{{$cc->image_name}}" style="height:400px; width:250px;">
                   @endforeach
                 </a>
                 <div class="card-content">
