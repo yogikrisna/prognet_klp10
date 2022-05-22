@@ -32,14 +32,14 @@ class CartController extends Controller
             $cart = new Cart();
             $cart->user_id = $user->id;
             $cart->product_id = $id; 
-            $cart->qty ;
+            $cart->qty =1;
             $cart->status = "notyet";
             $cart->save();  }
       
         else{  
             foreach($carts as $cart){
                 $temp = new Cart;
-                $temp = Cart::where('id','=',$cart->id)->increment('qty');
+                $temp = Cart::where('id','=',$cart->id)->increment('qty', 1);
             }  
         }
         return redirect('/users/cart');
