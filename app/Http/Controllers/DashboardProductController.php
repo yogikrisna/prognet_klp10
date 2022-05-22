@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProductCategory;
 use App\Models\ProductCategoryDetail;
 use App\Models\ProductImage;
+use App\Models\ProductReview;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\discounts;
@@ -62,7 +63,7 @@ class DashboardProductController extends Controller
             'description' => 'required'
         ]);
 
-        $slug = SlugService::createSlug(products::class, 'slug', $request->product_name);
+        
 
         $fotoBuku = $request->product_name . '-'. date('dmY') . '.' .$request->image->extension(); 
         $request->image->move(public_path('storage'), $fotoBuku);
@@ -115,15 +116,30 @@ class DashboardProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        return view('admin.edit', [
-            'product' => $product,
-            'title' => 'Edit Product',
-            'categories' => ProductCategory::all()
-        ]);
+        $product = Product::find($id);
+        $categories= ProductCategory::all();
+        $product_review = ProductReview::where('product_id', '=', $id)->paginate(10);
+        return view('admin.edit', compact('product', 'product_review'));
+        // return view('admin.edit', [
+        //     'product' => $product,
+        //     'title' => 'Edit Product',
+        //     'categories' => ProductCategory::all(),
+        //     'product_review'=> $review
+        // ]);
     }
-
+    // public function edit(Product $product)
+    // {
+    //     $product = Product::find($id);
+    //     $review=ProductReview::where('product_id', '=', $product);
+    //     return view('admin.edit', [
+    //         'product' => $product,
+    //         'title' => 'Edit Product',
+    //         'categories' => ProductCategory::all(),
+    //         'product_review'=> $review,
+    //     ]);
+    // }
     /**
      * Update the specified resource in storage.
      *

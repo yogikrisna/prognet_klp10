@@ -144,17 +144,17 @@
                 <div class="btn-group">
                     {{-- TOMBOL APPROVE --}}
                     @if (($order->status == 'unverified') && (isset($order->proof_of_payment)))
-                        <form action="{{ url('approve/'. $order->id) }}" method="POST">
+                        <form action="/admin/approve/{{ $order->id}}" method="POST">
                             {{  method_field('PUT') }}
                             {{ csrf_field() }}
                             <button type="submit" name="approve" class="btn btn-success">Approve
                             </button>
                         </form>
                     @endif
-    
+     
                     {{-- TOMBOL KIRIM --}}
                     @if ($order->status == 'verified')
-                        <form action="{{ url('delivered/'. $order->id) }}" method="POST">
+                        <form action="/admin/delivered/{{ $order->id}}" method="POST">
                             {{  method_field('PUT') }}
                             {{ csrf_field() }}
                             <button type="submit" name="delivered" class="btn btn-info">Kirim
@@ -165,7 +165,7 @@
     
                     {{-- TOMBOL CANCEL --}}
                     @if (($order->status == 'unverified' && $order->proof_of_payment == NULL) || (($order->status == 'unverified') && (isset($order->proof_of_payment))) || ($order->status == 'verified'))
-                        <form action="{{ url('canceled/'. $order->id) }}" method="POST">
+                        <form action="/admin/canceled/{{ $order->id}}" method="POST">
                             {{ method_field('PUT') }}
                             {{ csrf_field() }}
                             <button type="submit" name="canceled" class="btn btn-danger">Cancel

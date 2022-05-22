@@ -67,7 +67,70 @@
                         </form>
                     </div>
 
-
+                    <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-header card-header-primary">
+                            <h4 class="card-title ">Product Review</h4>
+                            <p class="card-category"> </p>
+                          </div>
+                          <div class="card-body">
+                            <div class="table-responsive">
+                              <table class="table">
+                                <thead class=" text-primary">
+                                  <th>
+                                    ID
+                                  </th>
+                                  <th>
+                                    User Name
+                                  </th>
+                                  <th>
+                                    Rate
+                                  </th>
+                                  <th>
+                                    Comment
+                                  </th>
+                                  <th>
+                                    Action
+                                  </th>
+                                </thead>
+                                <tbody>
+                                 {{-- @if ($product_review->isEmpty())
+                                     <tr>
+                                       <td>
+                                         <p>Data is empty</p>
+                                       </td>
+                                     </tr>
+                                 @else --}}
+                                  @foreach ($product_review as $review)
+                                      
+                                  <tr>
+                                    <td>
+                                    {{$loop->iteration}}
+                                    </td>
+                                    <td>
+                                      {{$review->user->user_name}}
+                                    </td>
+                                    <td>
+                                      {{$review->rate}}
+                                    </td>
+                                    <td>
+                                      {{$review->content}}
+                                    </td>
+                                    <td class="td-actions text-left" >
+                                      <a href="admin/respons/{{$review->id}}/add"  rel="tooltip" title="Review Product" class="btn btn-primary btn-sm">
+                                        <span class="lnr lnr-pencil"> Add Response</span>
+                                          </a>
+                                    </td>
+                                  </tr>
+                                    @endforeach
+                                 {{-- @endif --}}
+                                </tbody>
+                              </table>
+                            </div>
+                            {{-- {{$product_review->links()}} --}}
+                          </div>
+                        </div>
+                      </div> 
                 </div>
 
             </div>

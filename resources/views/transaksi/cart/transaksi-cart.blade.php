@@ -56,14 +56,15 @@
                                         </td>
                                         <td class="pro-title">{{ $detail->product->product_name }}</td>
                                         <td class="pro-price"><span>{{rupiah($detail->product->price) }}</span></td>
-                                        <td class="pro-quantity">
+                                        {{-- <td class="pro-quantity">
                                             <div class="pro-qty"> 
                                                  <div class="count-input-block">
                                                     <input type="number" name="qty" class="form-control text-center"
-                                                        >
+                                                        {{$detail->qty}}>
                                                 </div> 
                                              </div> 
-                                        </td>
+                                        </td> --}}
+                                        <td class="pro-title">{{ $detail->qty }}</td>
                                         <td class="pro-subtotal"><span>{{ rupiah($detail->product->price*$detail->qty) }}</span></td>
                                         <td class="pro-subtotal"><span>{{$detail->status}}</span></td>
                                     </tr>
@@ -96,7 +97,7 @@
                         <div class="cart-summary-wrap">
                             <h4><span>Cart Summary</span></h4>
                             <p>Sub Total <span class="text-primary">{{ rupiah($subtotal)}}</span></p>
-                            <p>Diskon <span class="text-primary">{{ rupiah($subtotal)}}</span></p>
+                            <p>Diskon <span class="text-primary">0</span></p>
                             <h2>Grand Total <span class="text-primary">{{ rupiah($subtotal)}}</span></h2>
                         </div>
                         <div class="cart-summary-button">

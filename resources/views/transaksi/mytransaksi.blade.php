@@ -74,7 +74,7 @@
                                    <p>Pesanan Telah di terima</p>
                                     @endif
                                     @if (($item->status == 'unverified' && $item->proof_of_payment == NULL) || (($item->status == 'unverified') && (isset($item->proof_of_payment))) || ($item->status == 'verified'))
-                                            <form action="userCanceled/{{$item->id}}" method="POST">
+                                            <form action="users/userCanceled/{{$item->id}}" method="POST">
                                                     {{ method_field('PUT') }}
                                                     {{ csrf_field() }}
                                                     <button type="submit" name="canceled" class="badge bg-warning nav-link">Cancel

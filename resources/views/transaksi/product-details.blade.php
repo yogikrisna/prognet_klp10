@@ -63,10 +63,10 @@
                     <div class="add-to-cart-row">
                         <div class="count-input-block">
                             <span class="widget-label">Qty</span>
-                            <input type="number" class="form-control text-center" value="1">
+                            <input type="number" name= "qty" class="form-control text-center" value="1">
                         </div>
                         <div class="add-cart-btn">
-                            <a href="" class="btn btn-outlined--primary"><span class="plus-icon">+</span>Add to
+                            <a href="{{route('cart.add', $data->id)}}" class="btn btn-outlined--primary"><span class="plus-icon">+</span>Add to
                                 Cart</a>
                         </div>
                     </div>
@@ -96,8 +96,10 @@
                     </article>
                 </div>
                 <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="tab2">
+                     
                     <div class="review-wrapper">
-                        <h2 class="title-lg mb--20">1 REVIEW FOR AUCTOR GRAVIDA ENIM</h2>
+                      
+                        <h2 class="title-lg mb--20"></h2>
                         <div class="review-comment mb--20">
                             <div class="avatar">
                                 <img src="image/icon/author-logo.png" alt="">
@@ -110,13 +112,14 @@
                                     <span class="ion-android-star-outline"></span>
                                     <span class="ion-android-star-outline"></span>
                                 </div>
-                                <h6 class="author">ADMIN – <span class="font-weight-400">March 23, 2015</span>
+                                <h6 class="author"><span class="font-weight-400"></span>
                                 </h6>
-                                <p>Lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio
-                                    quis mi.</p>
+                                <p></p>
                             </div>
                         </div>
-                        <h2 class="title-lg mb--20 pt--15">ADD A REVIEW</h2>
+                    </div>
+                        {{-- @endforeach --}}
+                        {{-- <h2 class="title-lg mb--20 pt--15">ADD A REVIEW</h2>
                         <div class="rating-row pt-2">
                             <p class="d-block">Your Rating</p>
                             <span class="rating-widget-block">
@@ -165,8 +168,8 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
-                    </div>
+                        </div> --}}
+                
                 </div>
             </div>
         </div>

@@ -246,8 +246,8 @@ class TransaksiController extends Controller
                     'status' => 'success'
                 ]);
 
-
-    return redirect('/users/cartTransaksi');
+// return $transaction;
+    return redirect('/cartTransaksi');
     }
 
     public function userCanceled($id)
@@ -260,7 +260,7 @@ class TransaksiController extends Controller
                     'status' => 'canceled'
                 ]);
         
-        return redirect('/users/cartTransaksi');
-       
+        return redirect('/cartTransaksi');
+        // return $transaction;
     }
 }

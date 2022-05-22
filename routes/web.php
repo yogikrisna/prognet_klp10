@@ -7,6 +7,8 @@ use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\DiscountsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductImages;
+use App\Http\Controllers\ProductReviewController;
+use App\Http\Controllers\ResponsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductCategory;
 use App\Models\ProductImage;
@@ -55,7 +57,7 @@ Route::middleware('auth:web')->prefix('users')->group(function () {
   Route::get('/home', [HomeController::class, 'index'])->name('index');
   Route::get('/home/product/{product}', [HomeController::class, 'show']);
   Route::get('/cart', [CartController::class, 'detailcart'])->name('cart.index');
-  Route::get('/addcart-{id}',[CartController::class, 'addcart']);
+  Route::get('/addcart-{id}',[CartController::class, 'addcart'])->name('cart.add');
   Route::get('/cart/{product_id}', [CartController::class, 'destroy'])->name('cart.delete');
   Route::get('/checkout', [TransaksiController::class, 'checkout'])->name('checkout');
   Route::post('/checkout/confirm', [TransaksiController::class, 'store'])->name('checkout.confirm');
@@ -72,13 +74,20 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'dashboard'])->name ('dashboard');
   
   });
-  // Auth::routes();
+  Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
+    Route::resource('/products', DashboardProductController::class);
+  
+  });
+  Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
   Route::resource('/products', DashboardProductController::class);
+  Route::get('{review}/add', [ResponsController::class,'add_response'])->name('response.add_response');
+  Route::get('/edit',[ResponsController::class,'edit'])->name('response.edit');
+  Route::post('/store', [ResponsController::class,'store'])->name('response.store');
+  Route::put('/update',[ResponsController::class,'update'])->name('response.update');
 });
 Auth::routes();
-
 
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {

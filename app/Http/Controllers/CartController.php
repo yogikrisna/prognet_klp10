@@ -32,20 +32,17 @@ class CartController extends Controller
             $cart = new Cart();
             $cart->user_id = $user->id;
             $cart->product_id = $id; 
-            $cart->qty = 1;
+            $cart->qty ;
             $cart->status = "notyet";
             $cart->save();  }
-        // else if($carts->status=='checkedout'){
-        //     $carts = Cart::where([['user_id', '=', $user->id],['product_id','=',$id]])->delete();
-        //     // return redirect('users/cart')->with('status', 'Product berhasil dihapus!');
-        // }
+      
         else{  
             foreach($carts as $cart){
                 $temp = new Cart;
-                $temp = Cart::where('id','=',$cart->id)->increment('qty', 1);
+                $temp = Cart::where('id','=',$cart->id)->increment('qty');
             }  
         }
-        return view('users/cart');
+        return redirect('/users/cart');
   
     }
 

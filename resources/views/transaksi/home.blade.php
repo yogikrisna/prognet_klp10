@@ -125,7 +125,7 @@ Deal of the day
                 <div class="product-card">
                     <div class="product-header">
                         <a href="/detailcart" class="author">
-                            Ypple
+                           Stock:  {{ $barang->stock }}
                         </a>
                         <h3><a href="product-details.html">{{ $barang->product_name }}
                           </a>
@@ -143,7 +143,7 @@ Deal of the day
                             @endforeach
                                 </a>
                                 <div class="hover-btns">
-                                    <a href="/users/addcart/{{ $barang->id }}" class="single-btn">
+                                    <a href="{{route('cart.add', $barang->id)}}" class="single-btn">
                                         <i class="fas fa-shopping-basket"></i>
                                     </a>
                                     <a href="{{route('detail-product', $barang->id)}}" 
@@ -158,8 +158,14 @@ Deal of the day
                             <del class="price-old">{{ $barang->price }}</del>
                             <span class="price-discount">20%</span>
                         </div>
-                        <div class="count-down-block">
-                            <div class="product-countdown" data-countdown="01/05/2020"></div>
+                        <div class="star-widget">
+                     
+                            <label for="rate-5" class="fas fa-star"></label>
+                            <label for="rate-4" class="fas fa-star"></label>
+                            <label for="rate-3" class="fas fa-star"></label>
+                            <label for="rate-2" class="fas fa-star"></label>
+                            {{-- <input type="radio" value="1" name="rate[]" id="rate-1">
+                            <label for="rate-1" class="fas fa-star"></label> --}}
                         </div>
                     </div>
                 </div>
