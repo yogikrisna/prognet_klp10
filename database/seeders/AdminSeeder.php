@@ -18,7 +18,7 @@ class AdminSeeder extends Seeder
     {
         DB::table('admins')->insert([
             'admin_name' => 'Dewa Adhigamika',
-            'username' => 'fogikkun',
+            'username' => 'fogik',
             'password' => bcrypt('12345678'),
             'admin_address' => 'Kuta Bali',
             'phone' => '081236227037'

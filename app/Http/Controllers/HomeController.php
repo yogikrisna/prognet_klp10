@@ -29,7 +29,7 @@ class HomeController extends Controller
         // $produk = Product::all();
         $data = array('title' => 'Home');
         
-        $datas= Product::all();
+        $datas= Product::where('status', 1)->get();
         // $datas =DB::Table('products')->join('product_images','products.id','=','product_images.product_id')
         // ->select('products.*','product_images.image_name');
       

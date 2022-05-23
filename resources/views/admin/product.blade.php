@@ -39,7 +39,7 @@
                         @endforeach
                         {!! $detail->description !!}
                     </article>
-                    <h1 class="card-title"><strong>Product Discount</strong></h1>
+                    <!--<h1 class="card-title"><strong>Product Discount</strong></h1>
                     <div class="card">
                         <div class="table">
                             <table class="table table-striped table-bordered center">
@@ -73,19 +73,13 @@
                                         </td>
                                     </tr>
                                     @empty
-                                        <div class="col text-center">
-                                            <h6 class="text-center">No Discount Added</h6>
-                                            <button class="btn btn-success" onclick="location.href='/admin/product/{{ $product->slug }}/add-discount'" data-toggle="tooltip" data-placement="bottom" title="Add Product">
-                                                <i class="fas fa-plus"></i>
-                                                Add Discount
-                                            </button>
-                                        </div>
+                                        
                                         
                                 @endforelse
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="my-3 fs-5">
                         <a href="/admin/products"> Back to Products</a>
                     </div>
