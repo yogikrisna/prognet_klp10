@@ -16,7 +16,7 @@
                 </div>
                 <div class="container-fluid">
                     <div class="table-responsive col-lg-auto">
-                        <a href="products/create" class="btn btn-primary my-3"> Create new product</a>
+                        <a href="products/create" class="btn btn-primary my-3"> Create New Product</a>
                         <table class="table table-striped table-sm">
                             <thead>
                                 <tr>

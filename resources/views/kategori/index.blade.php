@@ -16,7 +16,7 @@
                 </div>
                 <div class="container-fluid">
                     <div class="table-responsive col-lg-auto">
-                        <a href="/admin/kategori/create" class="btn btn-primary my-3"> Create new kategori</a>
+                        <a href="/admin/kategori/create" class="btn btn-primary my-3"> Create New Kategori</a>
                         <table class="table table-striped table-sm">
                             <thead>
                                 <tr>
