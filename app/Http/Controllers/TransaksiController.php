@@ -59,32 +59,6 @@ class TransaksiController extends Controller
 
     public function upload_review_user($id, Request $request){
         
-        $i = 0;
-        $j = 0;
-        $k = 0;
-        foreach($request->product_id as $pp){
-            foreach($request->rate as $rate){
-                $temp = (int)$rate;
-                foreach($request->content as $content){
-                    if($i == $j && $i==$k)
-                    ProductReview::create([
-                        'product_id' => $pp,
-                        'user_id' => Auth::user()->id,
-                        'rate' => $temp,
-                        'content' => $content,
-                    ]);
-
-                    $transaksi = Transaksi::where('id', '=', $id)->first();
-                    $transaksi->is_review = 1;
-                    $transaksi->update();
-                    $k++;
-                }
-                $j++;
-            }$i++;
-            
-        }
-        return back();
-    }
     public function checkout(){
        
         // $kategori = ProductCategory::all();  
