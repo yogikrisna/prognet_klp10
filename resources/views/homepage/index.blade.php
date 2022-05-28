@@ -36,7 +36,7 @@
                 </a>
                 <div class="card-content">
                   <h3 class="title" style="text-align:center;"><a href="{{route('detail-product',$data->id)}}">{{ $data->product_name}}</a></h3>
-                  <p class="post-meta" style="text-align:center;."><span>{{ $data->created_at }} </span> | Price : <a>{{ $data->price }}</a></p>
+                  <p class="post-meta" style="text-align:center;"><span>{{ $data->created_at }} </span> | Price : <a>{{ $data->price }}</a></p>
                   <article>
                     <h2 class="sr-only">
                     {{ $data->price }}

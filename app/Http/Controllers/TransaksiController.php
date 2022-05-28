@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\User;
+use App\Models\Admin;
 use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\ProductCategory;
@@ -10,7 +11,7 @@ use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class TransaksiController extends Controller
@@ -89,6 +90,7 @@ class TransaksiController extends Controller
        
         // $kategori = ProductCategory::all();  
         $carts = Cart::with('product')->where([['user_id', '=', Auth::user()->id],['status','=', 'notyet']])->get();
+
         return view('transaksi.checkout.detail-trans',compact( 'carts'));
         // return $carts;
     }
@@ -154,6 +156,30 @@ class TransaksiController extends Controller
                 ]);
         }
         
+        //Notif Admin
+        $transaksi_id = $transaksi->id;
+        $admin = Admin::find(10);
+        $data = [
+            'nama'=> Auth::user()->name,
+            'message'=>'melakukan transaksi!',
+            'id'=> $transaksi_id,
+            'category' => 'transaction'
+        ];
+        $data_encode = json_encode($data);
+        $admin->createNotif($data_encode);
+
+        //Notif User
+        $transaksi_id = $transaksi->id;
+        $user = User::find($transaksi->user_id);
+        $data = [
+            'nama'=>Auth::user()->name,
+            'message'=>'Upload bukti pembayaran!',
+            'id'=>$transaksi_id,
+            'category' => 'transaction'
+        ];
+        $data_encode = json_encode($data);
+        $user->createNotifUser($data_encode);
+
         // return $transaksi;
         return redirect()->route('transaksi.detail', $transaksi->id);
     }
@@ -184,6 +210,26 @@ class TransaksiController extends Controller
             ]);
         }
 
+        //Notif Admin
+        $admin = Admin::find(10);
+        $data = [
+            'nama'=> $user->name,
+            'message'=>'Pesanan terverifikasi!',
+            'id'=> $id,
+            'category' => 'transaction'
+        ];
+        $data_encode = json_encode($data);
+        $admin->createNotif($data_encode);
+
+        //Notif User
+        $data = [
+            'nama'=> $user->name,
+            'message'=>'Pesanan terverifikasi!',
+            'id'=> $id,
+            'category' => 'approved'
+        ];
+        $data_encode = json_encode($data);
+        $user->createNotifUser($data_encode);
 
         return redirect('/admin/transactions');
     }
@@ -197,6 +243,26 @@ class TransaksiController extends Controller
                     'status' => 'delivered'
                 ]);   
 
+        //Notif Admin
+        $admin = Admin::find(10);
+        $data = [
+            'nama'=> $user->name,
+            'message'=>'Pesanan dikirim!',
+            'id'=> $id,
+            'category' => 'transaction'
+        ];
+        $data_encode = json_encode($data);
+        $admin->createNotif($data_encode);
+
+        //Notif User
+        $data = [
+            'nama'=> $user->name,
+            'message'=>'Pesanan dikirim!',
+            'id'=> $id,
+            'category' => 'delivered'
+        ];
+        $data_encode = json_encode($data);
+        $user->createNotifUser($data_encode);
 
         return redirect('/admin/transactions');
     }
@@ -209,7 +275,28 @@ class TransaksiController extends Controller
                 ->update([
                     'status' => 'canceled'
                 ]);
-                  
+        
+        //Notif Admin
+        $admin = Admin::find(10);
+        $data = [
+            'nama'=> 'Admin',
+            'message'=>'membatalkan pesanan!',
+            'id'=> $id,
+            'category' => 'transaction'
+        ];
+        $data_encode = json_encode($data);
+        $admin->createNotif($data_encode);
+
+        //Notif User
+        $data = [
+            'nama'=> $user->name,
+            'message'=>'Pesanan dibatalkan!',
+            'id'=> $id,
+            'category' => 'canceled'
+        ];
+        $data_encode = json_encode($data);
+        $user->createNotifUser($data_encode);        
+
         return redirect('/admin/transactions');
     }
 
@@ -222,6 +309,27 @@ class TransaksiController extends Controller
                     'status' => 'expired'
                 ]);
 
+        //Notif Admin
+        $admin = Admin::find(10);
+        $data = [
+            'nama'=> $user->name,
+            'message'=>'Pesanan expired!',
+            'id'=> $id,
+            'category' => 'transaction'
+        ];
+        $data_encode = json_encode($data);
+        $admin->createNotif($data_encode);
+
+        //Notif User
+        $data = [
+            'nama'=> $user->name,
+            'message'=>'Pesanan expired!',
+            'id'=> $id,
+            'category' => 'expired'
+        ];
+        $data_encode = json_encode($data);
+        $user->createNotifUser($data_encode);        
+
         return redirect('/admin/transactions');
     }
 
@@ -233,6 +341,28 @@ class TransaksiController extends Controller
                 ->update([
                     'status' => 'expired'
                 ]);
+
+        //Notif Admin
+        $admin = Admin::find(10);
+        $data = [
+            'nama'=> $user->name,
+            'message'=>'Pesanan expired!',
+            'id'=> $id,
+            'category' => 'transaction'
+        ];
+        $data_encode = json_encode($data);
+        $admin->createNotif($data_encode);
+
+        //Notif User
+        $data = [
+            'nama'=> $user->name,
+            'message'=>'Pesanan expired!',
+            'id'=> $id,
+            'category' => 'expired'
+        ];
+        $data_encode = json_encode($data);
+        $user->createNotifUser($data_encode);
+        
         return redirect('/users/cartTransaksi');
     }
 
@@ -245,9 +375,30 @@ class TransaksiController extends Controller
                 ->update([
                     'status' => 'success'
                 ]);
+        
+        //Notif Admin
+        $admin = Admin::find(10);
+        $data = [
+            'nama'=> $user->name,
+            'message'=>'Pesanan diterima!',
+            'id'=> $id,
+            'category' => 'transaction'
+        ];
+        $data_encode = json_encode($data);
+        $admin->createNotif($data_encode);
 
-// return $transaction;
-    return redirect('/cartTransaksi');
+        //Notif User
+        $data = [
+            'nama'=> $user->name,
+            'message'=>'Pesanan diterima!',
+            'id'=> $id,
+            'category' => 'success'
+        ];
+        $data_encode = json_encode($data);
+        $user->createNotifUser($data_encode);
+        
+        // return $transaction;
+        return redirect('/cartTransaksi');
     }
 
     public function userCanceled($id)
