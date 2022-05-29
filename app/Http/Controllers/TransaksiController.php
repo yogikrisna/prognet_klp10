@@ -85,7 +85,6 @@ class TransaksiController extends Controller
         return back();
         // return $transaksi;
     }
-
     public function upload_review_user($id, Request $request){
         
         $i = 0;
@@ -135,6 +134,7 @@ class TransaksiController extends Controller
             $user->createNotifUser($data_encode);
         return back();
     }
+        
     public function checkout(){
        
         // $kategori = ProductCategory::all();
@@ -484,6 +484,6 @@ class TransaksiController extends Controller
                 $data_encode = json_encode($data);
                 $user->createNotifUser($data_encode);
         return redirect('/cartTransaksi');
-        // return $transaction;
+       
     }
 }

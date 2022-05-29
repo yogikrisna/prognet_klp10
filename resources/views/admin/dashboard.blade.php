@@ -127,8 +127,13 @@
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <!-- <script>
     
+<<<<<<< HEAD
     var kredits = ['{{$january}}','{{$february}}','{{$march}}','{{$april}}','{{$may}}','{{$june}}','{{$july}}','{{$august}}','{{$september}}','{{$october}}','{{$november}}','{{$december}}'];
     var debits = [0,0,0,0,0,0,0,0,0,0,0,0];
+=======
+    var debits = ['{{$january}}','{{$february}}','{{$march}}','{{$april}}','{{$may}}','{{$june}}','{{$july}}','{{$august}}','{{$september}}','{{$october}}','{{$november}}','{{$december}}'];
+    var kredits = [0,0,0,0,0,0,0,0,0,0,0,0];
+>>>>>>> 2bd82d9cc8cc7adb20d4ae4c50b40d5ddea3c603
    Highcharts.chart('container', {
     chart: {
         type: 'spline'

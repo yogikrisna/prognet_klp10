@@ -52,7 +52,7 @@ Route::prefix('admin/discount')->group(function () {
   Route::delete('/{id}', [DiscountsController::class, 'destroy'])->name('discount.destroy')->middleware('auth:admin');
 });
 
-
+Route::put('/timeoutuser/{id}', [TransaksiController::class, 'transactionsTimeout'])->name('transactions.timeout');
 Route::middleware('auth:web')->prefix('users')->group(function () {
   Route::get('/home', [HomeController::class, 'index'])->name('index');
   Route::get('/home/product/{product}', [HomeController::class, 'show']);
@@ -68,6 +68,7 @@ Route::middleware('auth:web')->prefix('users')->group(function () {
   Route::get('/cartTransaksi', [TransaksiController::class, 'index'])->name('index.transaksi');
   Route::put('/success/{id}', [TransaksiController::class,'userSuccess'])->name('user.success');
   Route::put('/userCanceled/{id}',[TransaksiController::class,'userCanceled'])->name('user.canceled');
+  Route::get('/order/expired', 'TransactionsController@orderExpired')->name('order.expired')->middleware('auth');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
@@ -82,7 +83,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
   Route::resource('/products', DashboardProductController::class);
-  Route::get('{review}/add', [ResponsController::class,'add_response'])->name('response.add_response');
+  Route::get('products/{idproduk}/{review}/add', [ResponsController::class,'add_response'])->name('response.add_response');
   Route::get('/edit',[ResponsController::class,'edit'])->name('response.edit');
   Route::post('/store', [ResponsController::class,'store'])->name('response.store');
   Route::put('/update',[ResponsController::class,'update'])->name('response.update');
@@ -121,6 +122,6 @@ Route::put('/approve/{id}', [TransaksiController::class,'adminApprove'])->name('
 Route::put('/delivered/{id}', [TransaksiController::class,'adminDelivered'])->name('transactions.delivered');
 Route::put('/canceled/{id}', [TransaksiController::class,'adminCanceled'])->name('transactions.canceled');
 Route::put('/expired/{id}', [TransaksiController::class,'adminExpired'])->name('transactions.expired');
-Route::put('/timeout/{id}',[TransaksiController::class,'transactionsTimeout'])->name('transactions.timeout');
+// Route::put('/timeout/{id}',[TransaksiController::class,'transactionsTimeout'])->name('transactions.timeout');
 });
 Auth::routes();

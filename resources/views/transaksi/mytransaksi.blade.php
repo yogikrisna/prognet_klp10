@@ -50,7 +50,7 @@
                                     <td >{{ $item->created_at->format('d/m/Y H:m:s') }}</td>
                                     <td class="pro-subtotal"><span>{{$item->status}}</span></td>
                                     <td>
-                                    @if ( $item->proof_of_payment == NULL)
+                                    @if ( ($item->proof_of_payment == NULL) && ($item->status != 'expired'))
                                     <a href="myTransaksi/{{ $item->id }}"
                                     class="badge bg-info nav-link">Bayar </a>
                                     @endif
@@ -73,7 +73,13 @@
                                     @if (($item->status == 'success')  && ($item->is_review !=NULL))
                                    <p>Pesanan Telah di terima</p>
                                     @endif
-                                    @if (($item->status == 'unverified' && $item->proof_of_payment == NULL) || (($item->status == 'unverified') && (isset($item->proof_of_payment))) || ($item->status == 'verified'))
+                                    @if (($item->status == 'expired') )
+                                    <p>Pesanan Telah expired</p>
+                                     @endif
+                                     @if (($item->status == 'canceled') )
+                                     <p>Pesanan anda telah di cancel</p>
+                                      @endif
+                                    @if (($item->status == 'unverified' && $item->proof_of_payment == NULL))
                                             <form action="users/userCanceled/{{$item->id}}" method="POST">
                                                     {{ method_field('PUT') }}
                                                     {{ csrf_field() }}
@@ -81,6 +87,7 @@
                                                     </button>
                                             </form>
                                     @endif
+                        
                                     </td>
                                     </tr>
                                     @endforeach
@@ -94,4 +101,5 @@
     </div>
 </main>
 </div>
+
 @endsection

@@ -155,11 +155,18 @@ Deal of the day
                         </div>
                         <div class="price-block">
                             <span class="price">{{ $barang->price }}</span>
+<<<<<<< HEAD
                             <!-- <del class="price-old">{{ $barang->price }}</del>
                             <span class="price-discount">20%</span> -->
                         </div>
                         <div class="star-widget">
                      
+=======
+                            {{-- <del class="price-old">{{ $barang->price }}</del>
+                            <span class="price-discount">0%</span> --}}
+                        </div>
+                        <div class="star-widget">
+>>>>>>> 2bd82d9cc8cc7adb20d4ae4c50b40d5ddea3c603
                             <div class="rating-block mb--15">
                                 <span class="ion-android-star-outline star_on"></span>
                                 <span class="ion-android-star-outline star_on"></span>
@@ -167,6 +174,15 @@ Deal of the day
                                 <span class="ion-android-star-outline"></span>
                                 <span class="ion-android-star-outline"></span>
                             </div>
+<<<<<<< HEAD
+=======
+                            {{-- <label for="rate-5" class="fas fa-star"></label>
+                            <label for="rate-4" class="fas fa-star"></label>
+                            <label for="rate-3" class="fas fa-star"></label>
+                            <label for="rate-2" class="fas fa-star"></label> --}}
+                            {{-- <input type="radio" value="1" name="rate[]" id="rate-1">
+                            <label for="rate-1" class="fas fa-star"></label> --}}
+>>>>>>> 2bd82d9cc8cc7adb20d4ae4c50b40d5ddea3c603
                         </div>
                     </div>
                 </div>

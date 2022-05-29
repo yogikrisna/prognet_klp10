@@ -89,7 +89,7 @@
                         <div class="col-lg-3">
                             <!-- <nav class="category-nav   ">
                                 <div>
-                                    <a href="javascript:void(0)" class="category-trigger"><i
+                                    {{-- <a href="javascript:void(0)" class="category-trigger"><i
                                             class="fa fa-bars"></i>Browse
                                         categories</a>
                                     <ul class="category-menu">
@@ -193,7 +193,7 @@
                                         <li class="cat-item hidden-menu-item"><a href="#">Indoor Living</a></li>
                                         <li class="cat-item"><a href="#" class="js-expand-hidden-menu">More
                                                 Categories</a></li>
-                                    </ul>
+                                    </ul> --}}
                                 </div>
                             </nav> -->
                         </div>
@@ -211,7 +211,12 @@
                                         <a href="/login" class="font-weight-bold">Login</a> <br>
                                         <span>or</span><a href="/register">Register</a>
                                     </div>
+<<<<<<< HEAD
                                     @else
+=======
+<<<<<<< HEAD
+                                @else
+>>>>>>> 2bd82d9cc8cc7adb20d4ae4c50b40d5ddea3c603
                              
                             </a>
                             <div class="main-navigation flex-lg-right">
@@ -226,6 +231,10 @@
                               </form>
                             </div>
                             @endif
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 2bd82d9cc8cc7adb20d4ae4c50b40d5ddea3c603
                                     <div class="notif-block">
                         
                                         <!-- @php $admin_unRead = \App\Models\UserNotification::where('notifiable_id', '=', 1)->where('read_at', NULL)->orderBy('created_at','desc')->count();
@@ -247,12 +256,14 @@
                                         <a href="#" class="font-weight-bold">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
                                                 <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
-                                            </svg>
+                                            </svg> 
+                                
                                         </a> 
                                     </div>
                                     <div class="cart-block">
                                         <div class="cart-total">
                                             @php $user_unRead = \App\Models\UserNotification::where('notifiable_id', Auth::user()->id)->where('read_at', NULL)->orderBy('created_at','desc')->count(); @endphp
+<<<<<<< HEAD
                                             <span class="text-number">
                                                 {{ $user_unRead }}
                                             </span>
@@ -292,14 +303,56 @@
                                     </div>
                                     <div class="cart-block">
                                         <div class="cart-total">
+=======
+>>>>>>> 2bd82d9cc8cc7adb20d4ae4c50b40d5ddea3c603
                                             <span class="text-number">
-                                                1
+                                                {{ $user_unRead }}
+                                            </span>
+                                            <span class="text-item">
+                                                Notif
+                                            </span>
+                                        </div>
+                                        <div class="cart-dropdown-block">
+                                            <div class=" single-cart-block ">
+                                                {{-- <div class="cart-product">
+                                                    <a href="product-details.html" class="image">
+                                                        <img src="image/products/cart-product-1.jpg" alt="">
+                                                    </a>
+                                                    <div class="content">
+                                                        <h3 class="title"><a href="product-details.html">Kodak PIXPRO
+                                                                Astro Zoom AZ421 16 MP</a>
+                                                        </h3>
+                                                        <p class="price"><span class="qty">1 ×</span> £87.34</p>
+                                                        <button class="cross-btn"><i class="fas fa-times"></i></button>
+                                                    </div>
+                                                </div> --}}
+                                            </div>
+                                            <div class=" single-cart-block ">
+                                                @php $user_notifikasi = \App\Models\UserNotification::where('notifiable_id', Auth::user()->id)->where('read_at', NULL)->orderBy('created_at','desc')->get(); @endphp
+                                                @forelse ($user_notifikasi as $notifikasi)
+                                                    @php $notif = json_decode($notifikasi->data); @endphp
+                                                    <div class="btn-block">
+                                                        <td>[{{ $notif->nama }}] {{ $notif->message }}</td>
+                                                    </div>
+                                                @empty
+                                                    <div class="btn-block">
+                                                        <td>Tidak ada notifikasi</td>
+                                                    </div>
+                                                @endforelse
+                                            </div> 
+                                        </div>
+                                    </div>
+>>>>>>> 5292bb877fb6d6213dc86eafea33919fb128b96c
+                                    <div class="cart-block">
+                                        <div class="cart-total">
+                                            <span class="text-number">
+                                                {{-- 1 --}}
                                             </span>
                                             <span class="text-item">
                                                 Shopping Cart
                                             </span>
                                             <span class="price">
-                                                £0.00
+                                                {{-- £0.00 --}}
                                                 <i class="fas fa-chevron-down"></i>
                                             </span>
                                         </div>
