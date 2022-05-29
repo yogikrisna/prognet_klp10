@@ -10,8 +10,8 @@ use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Transaksi;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Auth;
 
-use Auth;
 
 class Checkout extends Component
 {

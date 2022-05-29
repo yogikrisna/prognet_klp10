@@ -7,7 +7,7 @@ use App\Models\Respon;
 use App\Models\ProductReview;
 use App\Models\Admin;
 use App\Models\User;
-use Auth as Auth;
+use Illuminate\Support\Facades\Auth;
 
 class ResponsController extends Controller
 {
@@ -29,7 +29,7 @@ class ResponsController extends Controller
         //    return redirect()->intended(route('response.edit',['response'=>$response[0]]));
         }
         $product_review = ProductReview::where('id','=',$review)->with('user','product')->get();
-        $admin = \Auth::user();
+        $admin = Auth::user();
      
         //$admin_id=1;
         return view('admin.respons.addrespons',compact('product_review','admin'));
@@ -47,31 +47,53 @@ class ResponsController extends Controller
 
         $review = ProductReview::find($request->review_id);
         $user = User::find($review->user_id);
-        $response->save();
+        if ($response->save()) {
+            //Notif Admin
+            $admin = Admin::find(1);
+            $data = [
+                'nama'=> 'Admin',
+                'message'=>'Response dikirim!',
+                'id'=> $review->product_id,
+                'category' => 'review'
+            ];
+            $data_encode = json_encode($data);
+            $admin->createNotif($data_encode);
+
+            //Notif User
+            $data = [
+                'nama'=> $user->user_name,
+                'message'=>'Review diresponse!',
+                'id'=> $review->product_id,
+                'category' => 'review'
+            ];
+            $data_encode = json_encode($data);
+            $user->createNotifUser($data_encode);
+        // $response->save();
         return redirect('/products');
 
         
     }
-    public function edit($id)
-    {
-        $response = Respon::find($id);
-        $product_review = ProductReview::where('id', '=', $response->review_id)->with('user', 'product')->get();
-        $admin = \Auth::user();
-        $content = $response->content;
-        return view('response.editresponse', compact('product_review', 'admin','response','content'));
-    }
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'content' => ['required'],
-        ]);
+    // public function edit($id)
+    // {
+    //     $response = Respon::find($id);
+    //     $product_review = ProductReview::where('id', '=', $response->review_id)->with('user', 'product')->get();
+    //     $admin = Auth::user();
+    //     $content = $response->content;
+    //     return view('response.editresponse', compact('product_review', 'admin','response','content'));
+    // }
+    // public function update(Request $request, $id)
+    // {
+    //     $request->validate([
+    //         'content' => ['required'],
+    //     ]);
 
-        $response=new Respon();
-        $response=Respon::find($id);
-        $response->review_id = $request->review_id;
-        $response->admin_id = $request->admin_id;
-        $response->content = $request->content;
-        $response->save(); 
-        return redirect("/products");
-    }
+    //     $response=new Respon();
+    //     $response=Respon::find($id);
+    //     $response->review_id = $request->review_id;
+    //     $response->admin_id = $request->admin_id;
+    //     $response->content = $request->content;
+    //     $response->save(); 
+    //     return redirect("/products");
+    // }
+}
 }

@@ -7,8 +7,9 @@
 	$temp_shipping=0;
 ?>
 
-<form method="POST" action={{ route('checkout.confirm') }} enctype="multipart/form-data">
-    @csrf
+<form method="POST" action="{{ route('checkout.confirm') }}" enctype="multipart/form-data">
+<!-- <form action ="{{ route ('checkout.confirm') }} " method = "post"> -->
+@csrf
 <div class="row">
     <div class="col-12">
         <!-- Checkout Form s-->

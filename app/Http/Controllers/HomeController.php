@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductReview;
+use App\Models\UserNotification;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Auth;
 class HomeController extends Controller
 {
     /**
@@ -29,11 +31,12 @@ class HomeController extends Controller
         // $produk = Product::all();
         $data = array('title' => 'Home');
         
+        $notif = UserNotification::where('notifiable_id', auth()->user()->id)->get();
         $datas= Product::get();
         // $datas =DB::Table('products')->join('product_images','products.id','=','product_images.product_id')
         // ->select('products.*','product_images.image_name');
       
-        return view('transaksi.home')->with(compact('data', 'datas'));
+        return view('transaksi.home')->with(compact('data', 'datas', 'notif'));
     }
 
     public function detailProduct($id){

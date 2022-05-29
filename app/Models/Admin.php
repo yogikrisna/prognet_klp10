@@ -42,7 +42,7 @@ class Admin extends Authenticatable
     {
         $notif = new AdminNotification();
         $notif->type = 'App\Notifications\AdminNotification';
-        $notif->notifiable_type = 'App\User';
+        $notif->notifiable_type = 'App\Admin';
         $notif->notifiable_id = $this->id;
         $notif->data = $data;
         $notif->save();

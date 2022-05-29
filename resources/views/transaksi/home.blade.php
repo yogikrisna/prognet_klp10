@@ -106,7 +106,7 @@ Deal of the day
 <section class="section-margin">
     <div class="container">
         <div class="promo-section-heading">
-            <h2>Deal of the day up to 20% off Special offer</h2>
+            <h2>Discount 20%</h2>
         </div>
         <div class="product-slider with-countdown  slider-border-single-row sb-slick-slider" data-slick-setting='{
         "autoplay": true,
@@ -155,17 +155,18 @@ Deal of the day
                         </div>
                         <div class="price-block">
                             <span class="price">{{ $barang->price }}</span>
-                            <del class="price-old">{{ $barang->price }}</del>
-                            <span class="price-discount">20%</span>
+                            <!-- <del class="price-old">{{ $barang->price }}</del>
+                            <span class="price-discount">20%</span> -->
                         </div>
                         <div class="star-widget">
                      
-                            <label for="rate-5" class="fas fa-star"></label>
-                            <label for="rate-4" class="fas fa-star"></label>
-                            <label for="rate-3" class="fas fa-star"></label>
-                            <label for="rate-2" class="fas fa-star"></label>
-                            {{-- <input type="radio" value="1" name="rate[]" id="rate-1">
-                            <label for="rate-1" class="fas fa-star"></label> --}}
+                            <div class="rating-block mb--15">
+                                <span class="ion-android-star-outline star_on"></span>
+                                <span class="ion-android-star-outline star_on"></span>
+                                <span class="ion-android-star-outline star_on"></span>
+                                <span class="ion-android-star-outline"></span>
+                                <span class="ion-android-star-outline"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
