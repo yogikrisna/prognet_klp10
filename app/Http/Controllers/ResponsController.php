@@ -72,6 +72,6 @@ class ResponsController extends Controller
         $response->admin_id = $request->admin_id;
         $response->content = $request->content;
         $response->save(); 
-        return redirect("/products");
+        return redirect("/admin/products");
     }
 }

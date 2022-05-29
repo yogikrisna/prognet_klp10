@@ -116,8 +116,9 @@
                                     <td>
                                       {{$review->content}}
                                     </td>
+                                    
                                     <td class="td-actions text-left" >
-                                      <a href="admin/respons/{{$review->id}}/add"  rel="tooltip" title="Review Product" class="btn btn-primary btn-sm">
+                                      <a href="{{$review->id}}/add"  rel="tooltip" title="Review Product" class="btn btn-primary btn-sm">
                                         <span class="lnr lnr-pencil"> Add Response</span>
                                           </a>
                                     </td>

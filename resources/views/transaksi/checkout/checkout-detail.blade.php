@@ -23,6 +23,13 @@ function rupiah ($angka) {
                         <div class="wrapper" style="user-select:none; width:100%;">
                         <div class="time" style="width:100%; display:flex; align-items:center; justify-content:center; border:1px solid #E2E2E2; padding: 20px; height:200px; border-radius:6px; box-shadow:10px 10px 20px rgba(0,0,0,0.09);">
                           <h5 id="demo" style="text-align:center;font-size:50px; font-weight:500;">Time Countdown</h5>
+                          <form id="timeout" action="/timeoutuser/{{$transaksi->id}}" method="POST" hidden>
+                            {{ method_field('PUT') }}
+                            {{ csrf_field() }}
+                            <button type="submit" class="b tn btn-danger btn-lg btn-block mt-2" hidden>
+                                Expired   <span class="glyphicon glyphicon-chevron-right" hidden></span>
+                            </button>
+                        </form>
                         <script>
                           var countDownDate = new Date("{{$transaksi->timeout}}").getTime();
                        
@@ -48,7 +55,9 @@ function rupiah ($angka) {
                          // If the count down is finished, write some text
                          if (distance < 0) {
                            clearInterval(x);
-                           document.getElementById("demo").innerHTML = "EXPIRED";
+                           document.getElementById("demo").innerHTML = "expired";
+                           document.getElementById("timeout").submit();
+                             return;
                          }
                        }, 1000);
                        </script>  

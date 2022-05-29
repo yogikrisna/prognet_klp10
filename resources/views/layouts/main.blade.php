@@ -89,7 +89,7 @@
                         <div class="col-lg-3">
                             <nav class="category-nav   ">
                                 <div>
-                                    <a href="javascript:void(0)" class="category-trigger"><i
+                                    {{-- <a href="javascript:void(0)" class="category-trigger"><i
                                             class="fa fa-bars"></i>Browse
                                         categories</a>
                                     <ul class="category-menu">
@@ -193,23 +193,41 @@
                                         <li class="cat-item hidden-menu-item"><a href="#">Indoor Living</a></li>
                                         <li class="cat-item"><a href="#" class="js-expand-hidden-menu">More
                                                 Categories</a></li>
-                                    </ul>
+                                    </ul> --}}
                                 </div>
                             </nav>
                         </div>
                         <div class="col-lg-5">
                             <div class="header-search-block">
-                                <input type="text" placeholder="Search entire store here">
-                                <button>Search</button>
+                                {{-- <input type="text" placeholder="Search entire store here">
+                                <button>Search</button> --}}
                             </div>
                         </div>
                         <div class="col-lg-4">
+                            @if(!Auth::user())
                             <div class="main-navigation flex-lg-right">
                                 <div class="cart-widget">
                                     <div class="login-block">
                                         <a href="/login" class="font-weight-bold">Login</a> <br>
                                         <span>or</span><a href="/register">Register</a>
                                     </div>
+<<<<<<< HEAD
+                                @else
+                             
+                            </a>
+                            <div class="main-navigation flex-lg-right">
+                                <div class="cart-widget">
+                            <div class="login-block">
+                                <a class="font-weight-bold" a href="{{ route('userprofile') }}">  {{ Auth::user()->user_name }}</a> <br>
+                                {{-- <a href="{{ route('userprofile') }}"class="font-weight-bold">Logout</a> <br> --}}
+                                <span>or</span><a href="{{ route('logout') }}" onclick="event.preventDefault(); 
+                                document.getElementById('logout-form').submit();" >Logout</a>
+                              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                              </form>
+                            </div>
+                            @endif
+=======
                                     <div class="notif-block">
                         
                                         <!-- @php $admin_unRead = \App\Models\UserNotification::where('notifiable_id', '=', 1)->where('read_at', NULL)->orderBy('created_at','desc')->count();
@@ -275,16 +293,17 @@
                                             </div> 
                                         </div>
                                     </div>
+>>>>>>> 5292bb877fb6d6213dc86eafea33919fb128b96c
                                     <div class="cart-block">
                                         <div class="cart-total">
                                             <span class="text-number">
-                                                1
+                                                {{-- 1 --}}
                                             </span>
                                             <span class="text-item">
                                                 Shopping Cart
                                             </span>
                                             <span class="price">
-                                                £0.00
+                                                {{-- £0.00 --}}
                                                 <i class="fas fa-chevron-down"></i>
                                             </span>
                                         </div>

@@ -3,21 +3,15 @@
 namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\User;
-use App\Models\Admin;
 use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\ProductCategory;
-
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
-use App\Models\UserNotification as ModelsUserNotification;
-use App\Notifications\UserNotification;
-use App\Notifications\AdminNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-
 
 class TransaksiController extends Controller
 {
@@ -51,10 +45,6 @@ class TransaksiController extends Controller
     }
 
     public function upload_pembayaran($id, Request $request){
-        // dd($request);
-        $user = User::where('id', '=', Auth::user()->id)->get()->first();
-        $admin = Admin::all();
-
         $gambar = $request->gambar;
         $name = 'produk_' . time() . '.' . $gambar->getClientOriginalExtension();
         $transaksi = Transaksi::where('id','=', $id)->first();  
@@ -62,21 +52,16 @@ class TransaksiController extends Controller
         $transaksi->update();
 
         Storage::disk('asset')->put('assets/images/'.$name, file_get_contents($request->file('gambar')));
-
-        $user->notify(new UserNotification ('Bukti Bayar Terkirim'));
-        $admin->notify(new AdminNotification ('Terdapat Bukti Bayar Baru'));
+        
         
         return back();
         // return $transaksi;
     }
-
     public function upload_review_user($id, Request $request){
         
         $i = 0;
         $j = 0;
         $k = 0;
-        $user = User::where('id', '=', Auth::user()->id)->get()->first();
-        $admin = Admin::all();
         foreach($request->product_id as $pp){
             foreach($request->rate as $rate){
                 $temp = (int)$rate;
@@ -98,21 +83,13 @@ class TransaksiController extends Controller
             }$i++;
             
         }
-        $user->notify(new UserNotification ('Review Terkirim'));
-        $admin->notify(new AdminNotification ('Terdapat Review Baru'));
         return back();
     }
+        
     public function checkout(){
        
-        // $kategori = ProductCategory::all();
-        $user = User::where('id', '=', Auth::user()->id)->get()->first();
-        $admin = Admin::all();  
+        // $kategori = ProductCategory::all();  
         $carts = Cart::with('product')->where([['user_id', '=', Auth::user()->id],['status','=', 'notyet']])->get();
-        
-
-        $user->notify(new UserNotification ('Checkout Berhasil'));
-        $admin->notify(new AdminNotification ('Terdapat Checkout Baru'));
-
         return view('transaksi.checkout.detail-trans',compact( 'carts'));
         // return $carts;
     }
@@ -134,6 +111,7 @@ class TransaksiController extends Controller
             "courier_id" => "required",
             // 'products' => "required",
         ]);
+
         $date = Carbon::now('Asia/Makassar');
 
         $carts = Cart::with('product')->where([['user_id', '=', Auth::user()->id],['status','=', 'notyet']])->get();
@@ -176,6 +154,7 @@ class TransaksiController extends Controller
                     'status' => 'checkedout'
                 ]);
         }
+        
         // return $transaksi;
         return redirect()->route('transaksi.detail', $transaksi->id);
     }
@@ -193,8 +172,7 @@ class TransaksiController extends Controller
                 ->update([
                     'status' => 'verified'
                 ]);
-        $user = User::where('id', '=', Auth::user()->id)->get()->first();
-        $admin = Admin::all();
+
         $transaction = Transaksi::where('id', $id)->first();
         $transaction_detail = TransaksiDetail::where('transaction_id', $id)->get();
         $user = User::find($transaction->user_id);
@@ -207,8 +185,7 @@ class TransaksiController extends Controller
             ]);
         }
 
-        $user->notify(new UserNotification ('Pesanan di-approve'));
-        $admin->notify(new AdminNotification ('Pesanan Baru'));
+
         return redirect('/admin/transactions');
     }
 
@@ -216,15 +193,12 @@ class TransaksiController extends Controller
     {
         $transaction = Transaksi::where('id', $id)->first();
         $user = User::find($transaction->user_id);
-        $usern = User::where('id', '=', Auth::user()->id)->get()->first();
-        $admin = Admin::all();
         Transaksi::where('id', $id)
                 ->update([
                     'status' => 'delivered'
-                ]);
-                
-        $usern->notify(new UserNotification ('Pesanan diikirim'));
-        $admin->notify(new AdminNotification ('Pesanan dikirim'));
+                ]);   
+
+
         return redirect('/admin/transactions');
     }
 
@@ -232,16 +206,11 @@ class TransaksiController extends Controller
     {
         $transaction = Transaksi::where('id', $id)->first();
         $user = User::find($transaction->user_id);
-        $usern = User::where('id', '=', Auth::user()->id)->get()->first();
-        $admin = Admin::all();
         Transaksi::where('id', $id)
                 ->update([
                     'status' => 'canceled'
                 ]);
-        
-        $usern->notify(new UserNotification ('Membatalkan Pesanan'));
-        $admin->notify(new AdminNotification ('Pesanan dibatalkan'));   
-
+                  
         return redirect('/admin/transactions');
     }
 
@@ -249,15 +218,10 @@ class TransaksiController extends Controller
     {
         $transaction = Transaksi::where('id', $id)->first();
         $user = User::find($transaction->user_id);
-        $usern = User::where('id', '=', Auth::user()->id)->get()->first();
-        $admin = Admin::all();
         Transaksi::where('id', $id)
                 ->update([
                     'status' => 'expired'
                 ]);
-
-        $usern->notify(new UserNotification ('Pesanan Expired'));
-        $admin->notify(new AdminNotification ('Pesanan Expired')); 
 
         return redirect('/admin/transactions');
     }
@@ -266,16 +230,10 @@ class TransaksiController extends Controller
     {
         $transaction = Transaksi::where('id', $id)->first();
         $user = User::find($transaction->user_id);
-        $usern = User::where('id', '=', Auth::user()->id)->get()->first();
-        $admin = Admin::all();
         Transaksi::where('id', $id)
                 ->update([
                     'status' => 'expired'
                 ]);
-
-        $usern->notify(new UserNotification ('Pesanan Expired'));
-        $admin->notify(new AdminNotification ('Pesanan Expired')); 
-        
         return redirect('/users/cartTransaksi');
     }
 
@@ -283,32 +241,26 @@ class TransaksiController extends Controller
     {
         $transaction = Transaksi::where('id', $id)->first();
         $user = User::find($transaction->user_id);
-        $usern = User::where('id', '=', Auth::user()->id)->get()->first();
-        $admin = Admin::all();
+
         Transaksi::where('id', $id)
                 ->update([
                     'status' => 'success'
                 ]);
-        
-        $usern->notify(new UserNotification ('Pesanan diterima'));
-        $admin->notify(new AdminNotification ('Pesanan diterima'));
-        
-        // return $transaction;
-        return redirect('/cartTransaksi');
+
+    return $transaction;
+    // return redirect('/cartTransaksi');
     }
 
     public function userCanceled($id)
     {
         $transaction = Transaksi::where('id', $id)->first();
         $user = User::find($transaction->user_id);
-        $usern = User::where('id', '=', Auth::user()->id)->get()->first();
-        $admin = Admin::all();
+
         Transaksi::where('id', $id)
                 ->update([
                     'status' => 'canceled'
                 ]);
-        $usern->notify(new UserNotification ('Pesanan dibatalkan'));
-        $admin->notify(new AdminNotification ('Pesanan dibatalkan'));
+        
         return redirect('/cartTransaksi');
         // return $transaction;
     }
