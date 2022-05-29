@@ -70,7 +70,7 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <form action="{{route('response.store')}}" method="post"  class="form">
+                    <form action="/admin/store" method="post"  class="form">
                       @csrf
                       <div class="form-group bmd-form-group">
                         <label class="bmd-label-floating">Review ID</label>
