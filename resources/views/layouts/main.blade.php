@@ -211,11 +211,68 @@
                                         <span>or</span><a href="/register">Register</a>
                                     </div>
                                     <div class="notif-block">
+                        
+                                        <!-- @php $admin_unRead = \App\Models\UserNotification::where('notifiable_id', '=', 1)->where('read_at', NULL)->orderBy('created_at','desc')->count();
+                                        @endphp
+                                        
+                                        <a class="dropdown-item border-radius-md" href="#"> -->
+                                        <!-- @php $admin_notifikasi = \App\Models\UserNotification::where('notifiable_id', '=', 1)->where('read_at', NULL)->orderBy('created_at','desc')->get();
+                                        @endphp
+                                            @forelse ($admin_notifikasi as $notifikasi)
+                                                @php $notif = json_decode($notifikasi->data); @endphp
+                                                    <li style="width:400px;">
+                                                        <a href="">{{ Str::limit($notif->message, 20)}}</a>
+                                                    </li>
+                                            @empty
+                                            <li>
+                                                <a href="" class="notification-item">Tidak ada notifikasi</a>
+                                            </li>
+                                            @endforelse -->
                                         <a href="#" class="font-weight-bold">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
                                                 <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
                                             </svg>
                                         </a> 
+                                    </div>
+                                    <div class="cart-block">
+                                        <div class="cart-total">
+                                            @php $user_unRead = \App\Models\UserNotification::where('notifiable_id', Auth::user()->id)->where('read_at', NULL)->orderBy('created_at','desc')->count(); @endphp
+                                            <span class="text-number">
+                                                {{ $user_unRead }}
+                                            </span>
+                                            <span class="text-item">
+                                                Notif
+                                            </span>
+                                        </div>
+                                        <div class="cart-dropdown-block">
+                                            <div class=" single-cart-block ">
+                                                {{-- <div class="cart-product">
+                                                    <a href="product-details.html" class="image">
+                                                        <img src="image/products/cart-product-1.jpg" alt="">
+                                                    </a>
+                                                    <div class="content">
+                                                        <h3 class="title"><a href="product-details.html">Kodak PIXPRO
+                                                                Astro Zoom AZ421 16 MP</a>
+                                                        </h3>
+                                                        <p class="price"><span class="qty">1 ×</span> £87.34</p>
+                                                        <button class="cross-btn"><i class="fas fa-times"></i></button>
+                                                    </div>
+                                                </div> --}}
+                                            </div>
+                                            <div class=" single-cart-block ">
+                                                @php $user_notifikasi = \App\Models\UserNotification::where('notifiable_id', Auth::user()->id)->where('read_at', NULL)->orderBy('created_at','desc')->get(); @endphp
+                                                @forelse ($user_notifikasi as $notifikasi)
+                                                    @php $notif = json_decode($notifikasi->data); @endphp
+                                                    <div class="btn-block">
+                                                        <td>[{{ $notif->nama }}] {{ $notif->message }}</td>
+                                                    </div>
+                                                @empty
+                                                    <div class="btn-block">
+                                                        <td>Tidak ada notifikasi</td>
+                                                    </div>
+                                                @endforelse
+                                            </div> 
+                                        </div>
                                     </div>
                                     <div class="cart-block">
                                         <div class="cart-total">
@@ -277,16 +334,7 @@
                                     <a href="javascript:void(0)" class="category-trigger"><i
                                             class="fa fa-bars"></i>Browse
                                         categories</a>
-                                    <ul class="category-menu">
-                                        <li class="cat-item has-children">
-                                            <a href="#">Arts & Photography</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="#">Bags & Cases</a></li>
-                                                <li><a href="#">Binoculars & Scopes</a></li>
-                                                <li><a href="#">Digital Cameras</a></li>
-                                                <li><a href="#">Film Photography</a></li>
-                                                <li><a href="#">Lighting & Studio</a></li>
-                                            </ul>
+                            
                                         </li>
                                         <li class="cat-item has-children mega-menu"><a href="#">Biographies</a>
                                             <ul class="sub-menu">

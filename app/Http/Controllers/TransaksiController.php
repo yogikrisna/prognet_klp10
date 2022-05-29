@@ -7,12 +7,17 @@ use App\Models\Admin;
 use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\ProductCategory;
+
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
+use App\Models\UserNotification as ModelsUserNotification;
+use App\Notifications\UserNotification;
+use App\Notifications\AdminNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+
 
 class TransaksiController extends Controller
 {
@@ -46,6 +51,10 @@ class TransaksiController extends Controller
     }
 
     public function upload_pembayaran($id, Request $request){
+        // dd($request);
+        $user = User::where('id', '=', Auth::user()->id)->get()->first();
+        $admin = Admin::all();
+
         $gambar = $request->gambar;
         $name = 'produk_' . time() . '.' . $gambar->getClientOriginalExtension();
         $transaksi = Transaksi::where('id','=', $id)->first();  
@@ -54,6 +63,8 @@ class TransaksiController extends Controller
 
         Storage::disk('asset')->put('assets/images/'.$name, file_get_contents($request->file('gambar')));
 
+        $user->notify(new UserNotification ('Bukti Bayar Terkirim'));
+        $admin->notify(new AdminNotification ('Terdapat Bukti Bayar Baru'));
         return back();
         // return $transaksi;
     }
@@ -63,6 +74,8 @@ class TransaksiController extends Controller
         $i = 0;
         $j = 0;
         $k = 0;
+        $user = User::where('id', '=', Auth::user()->id)->get()->first();
+        $admin = Admin::all();
         foreach($request->product_id as $pp){
             foreach($request->rate as $rate){
                 $temp = (int)$rate;
@@ -84,12 +97,20 @@ class TransaksiController extends Controller
             }$i++;
             
         }
+        $user->notify(new UserNotification ('Review Terkirim'));
+        $admin->notify(new AdminNotification ('Terdapat Review Baru'));
         return back();
     }
     public function checkout(){
        
-        // $kategori = ProductCategory::all();  
+        // $kategori = ProductCategory::all();
+        $user = User::where('id', '=', Auth::user()->id)->get()->first();
+        $admin = Admin::all();  
         $carts = Cart::with('product')->where([['user_id', '=', Auth::user()->id],['status','=', 'notyet']])->get();
+        
+
+        $user->notify(new UserNotification ('Checkout Berhasil'));
+        $admin->notify(new AdminNotification ('Terdapat Checkout Baru'));
 
         return view('transaksi.checkout.detail-trans',compact( 'carts'));
         // return $carts;
@@ -112,7 +133,6 @@ class TransaksiController extends Controller
             "courier_id" => "required",
             // 'products' => "required",
         ]);
-
         $date = Carbon::now('Asia/Makassar');
 
         $carts = Cart::with('product')->where([['user_id', '=', Auth::user()->id],['status','=', 'notyet']])->get();
@@ -155,31 +175,6 @@ class TransaksiController extends Controller
                     'status' => 'checkedout'
                 ]);
         }
-        
-        //Notif Admin
-        $transaksi_id = $transaksi->id;
-        $admin = Admin::find(10);
-        $data = [
-            'nama'=> Auth::user()->name,
-            'message'=>'melakukan transaksi!',
-            'id'=> $transaksi_id,
-            'category' => 'transaction'
-        ];
-        $data_encode = json_encode($data);
-        $admin->createNotif($data_encode);
-
-        //Notif User
-        $transaksi_id = $transaksi->id;
-        $user = User::find($transaksi->user_id);
-        $data = [
-            'nama'=>Auth::user()->name,
-            'message'=>'Upload bukti pembayaran!',
-            'id'=>$transaksi_id,
-            'category' => 'transaction'
-        ];
-        $data_encode = json_encode($data);
-        $user->createNotifUser($data_encode);
-
         // return $transaksi;
         return redirect()->route('transaksi.detail', $transaksi->id);
     }
@@ -197,7 +192,8 @@ class TransaksiController extends Controller
                 ->update([
                     'status' => 'verified'
                 ]);
-
+        $user = User::where('id', '=', Auth::user()->id)->get()->first();
+        $admin = Admin::all();
         $transaction = Transaksi::where('id', $id)->first();
         $transaction_detail = TransaksiDetail::where('transaction_id', $id)->get();
         $user = User::find($transaction->user_id);
@@ -210,27 +206,8 @@ class TransaksiController extends Controller
             ]);
         }
 
-        //Notif Admin
-        $admin = Admin::find(10);
-        $data = [
-            'nama'=> $user->name,
-            'message'=>'Pesanan terverifikasi!',
-            'id'=> $id,
-            'category' => 'transaction'
-        ];
-        $data_encode = json_encode($data);
-        $admin->createNotif($data_encode);
-
-        //Notif User
-        $data = [
-            'nama'=> $user->name,
-            'message'=>'Pesanan terverifikasi!',
-            'id'=> $id,
-            'category' => 'approved'
-        ];
-        $data_encode = json_encode($data);
-        $user->createNotifUser($data_encode);
-
+        $user->notify(new UserNotification ('Pesanan di-approve'));
+        $admin->notify(new AdminNotification ('Pesanan Baru'));
         return redirect('/admin/transactions');
     }
 
@@ -238,32 +215,15 @@ class TransaksiController extends Controller
     {
         $transaction = Transaksi::where('id', $id)->first();
         $user = User::find($transaction->user_id);
+        $usern = User::where('id', '=', Auth::user()->id)->get()->first();
+        $admin = Admin::all();
         Transaksi::where('id', $id)
                 ->update([
                     'status' => 'delivered'
-                ]);   
-
-        //Notif Admin
-        $admin = Admin::find(10);
-        $data = [
-            'nama'=> $user->name,
-            'message'=>'Pesanan dikirim!',
-            'id'=> $id,
-            'category' => 'transaction'
-        ];
-        $data_encode = json_encode($data);
-        $admin->createNotif($data_encode);
-
-        //Notif User
-        $data = [
-            'nama'=> $user->name,
-            'message'=>'Pesanan dikirim!',
-            'id'=> $id,
-            'category' => 'delivered'
-        ];
-        $data_encode = json_encode($data);
-        $user->createNotifUser($data_encode);
-
+                ]);
+                
+        $usern->notify(new UserNotification ('Pesanan diikirim'));
+        $admin->notify(new AdminNotification ('Pesanan dikirim'));
         return redirect('/admin/transactions');
     }
 
@@ -271,31 +231,15 @@ class TransaksiController extends Controller
     {
         $transaction = Transaksi::where('id', $id)->first();
         $user = User::find($transaction->user_id);
+        $usern = User::where('id', '=', Auth::user()->id)->get()->first();
+        $admin = Admin::all();
         Transaksi::where('id', $id)
                 ->update([
                     'status' => 'canceled'
                 ]);
         
-        //Notif Admin
-        $admin = Admin::find(10);
-        $data = [
-            'nama'=> 'Admin',
-            'message'=>'membatalkan pesanan!',
-            'id'=> $id,
-            'category' => 'transaction'
-        ];
-        $data_encode = json_encode($data);
-        $admin->createNotif($data_encode);
-
-        //Notif User
-        $data = [
-            'nama'=> $user->name,
-            'message'=>'Pesanan dibatalkan!',
-            'id'=> $id,
-            'category' => 'canceled'
-        ];
-        $data_encode = json_encode($data);
-        $user->createNotifUser($data_encode);        
+        $usern->notify(new UserNotification ('Membatalkan Pesanan'));
+        $admin->notify(new AdminNotification ('Pesanan dibatalkan'));   
 
         return redirect('/admin/transactions');
     }
@@ -304,31 +248,15 @@ class TransaksiController extends Controller
     {
         $transaction = Transaksi::where('id', $id)->first();
         $user = User::find($transaction->user_id);
+        $usern = User::where('id', '=', Auth::user()->id)->get()->first();
+        $admin = Admin::all();
         Transaksi::where('id', $id)
                 ->update([
                     'status' => 'expired'
                 ]);
 
-        //Notif Admin
-        $admin = Admin::find(10);
-        $data = [
-            'nama'=> $user->name,
-            'message'=>'Pesanan expired!',
-            'id'=> $id,
-            'category' => 'transaction'
-        ];
-        $data_encode = json_encode($data);
-        $admin->createNotif($data_encode);
-
-        //Notif User
-        $data = [
-            'nama'=> $user->name,
-            'message'=>'Pesanan expired!',
-            'id'=> $id,
-            'category' => 'expired'
-        ];
-        $data_encode = json_encode($data);
-        $user->createNotifUser($data_encode);        
+        $usern->notify(new UserNotification ('Pesanan Expired'));
+        $admin->notify(new AdminNotification ('Pesanan Expired')); 
 
         return redirect('/admin/transactions');
     }
@@ -337,31 +265,15 @@ class TransaksiController extends Controller
     {
         $transaction = Transaksi::where('id', $id)->first();
         $user = User::find($transaction->user_id);
+        $usern = User::where('id', '=', Auth::user()->id)->get()->first();
+        $admin = Admin::all();
         Transaksi::where('id', $id)
                 ->update([
                     'status' => 'expired'
                 ]);
 
-        //Notif Admin
-        $admin = Admin::find(10);
-        $data = [
-            'nama'=> $user->name,
-            'message'=>'Pesanan expired!',
-            'id'=> $id,
-            'category' => 'transaction'
-        ];
-        $data_encode = json_encode($data);
-        $admin->createNotif($data_encode);
-
-        //Notif User
-        $data = [
-            'nama'=> $user->name,
-            'message'=>'Pesanan expired!',
-            'id'=> $id,
-            'category' => 'expired'
-        ];
-        $data_encode = json_encode($data);
-        $user->createNotifUser($data_encode);
+        $usern->notify(new UserNotification ('Pesanan Expired'));
+        $admin->notify(new AdminNotification ('Pesanan Expired')); 
         
         return redirect('/users/cartTransaksi');
     }
@@ -370,32 +282,15 @@ class TransaksiController extends Controller
     {
         $transaction = Transaksi::where('id', $id)->first();
         $user = User::find($transaction->user_id);
-
+        $usern = User::where('id', '=', Auth::user()->id)->get()->first();
+        $admin = Admin::all();
         Transaksi::where('id', $id)
                 ->update([
                     'status' => 'success'
                 ]);
         
-        //Notif Admin
-        $admin = Admin::find(10);
-        $data = [
-            'nama'=> $user->name,
-            'message'=>'Pesanan diterima!',
-            'id'=> $id,
-            'category' => 'transaction'
-        ];
-        $data_encode = json_encode($data);
-        $admin->createNotif($data_encode);
-
-        //Notif User
-        $data = [
-            'nama'=> $user->name,
-            'message'=>'Pesanan diterima!',
-            'id'=> $id,
-            'category' => 'success'
-        ];
-        $data_encode = json_encode($data);
-        $user->createNotifUser($data_encode);
+        $usern->notify(new UserNotification ('Pesanan diterima'));
+        $admin->notify(new AdminNotification ('Pesanan diterima'));
         
         // return $transaction;
         return redirect('/cartTransaksi');
@@ -405,12 +300,14 @@ class TransaksiController extends Controller
     {
         $transaction = Transaksi::where('id', $id)->first();
         $user = User::find($transaction->user_id);
-
+        $usern = User::where('id', '=', Auth::user()->id)->get()->first();
+        $admin = Admin::all();
         Transaksi::where('id', $id)
                 ->update([
                     'status' => 'canceled'
                 ]);
-        
+        $usern->notify(new UserNotification ('Pesanan dibatalkan'));
+        $admin->notify(new AdminNotification ('Pesanan dibatalkan'));
         return redirect('/cartTransaksi');
         // return $transaction;
     }

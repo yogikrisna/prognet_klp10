@@ -106,7 +106,9 @@ Deal of the day
 <section class="section-margin">
     <div class="container">
         <div class="promo-section-heading">
-            <h2>Deal of the day up to 20% off Special offer</h2>
+            @foreach($notif as $item)
+            <h2>{{ $item->data }}</h2>
+            @endforeach
         </div>
         <div class="product-slider with-countdown  slider-border-single-row sb-slick-slider" data-slick-setting='{
         "autoplay": true,
