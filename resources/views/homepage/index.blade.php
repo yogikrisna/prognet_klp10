@@ -28,15 +28,15 @@
           <div class="row space-db-lg--60 space-db--30">
           @foreach($datas as $data)
             <div class="col-lg-4 col-md-6 mb-lg--60 mb--30">
-              <div class="blog-card card-style-grid">
+              <div class="blog-card card-style-grid text-center">
                 <a href="blog-details.html" class="image d-block">
                   @foreach($data->product_images as $cc)
-                  <img src="/storage/{{$cc->image_name}}" alt="" style="height:500px;">
+                  <img src="/storage/{{$cc->image_name}}" style="height:400px; width:250px;">
                   @endforeach
                 </a>
                 <div class="card-content">
                   <h3 class="title" style="text-align:center;"><a href="{{route('detail-product',$data->id)}}">{{ $data->product_name}}</a></h3>
-                  <p class="post-meta" style="text-align:center;."><span>{{ $data->created_at }} </span> | Price : <a>{{ $data->price }}</a></p>
+                  <p class="post-meta" style="text-align:center;"><span>{{ $data->created_at }} </span> | Price : <a>{{ $data->price }}</a></p>
                   <article>
                     <h2 class="sr-only">
                     {{ $data->price }}

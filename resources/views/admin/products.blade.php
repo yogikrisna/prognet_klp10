@@ -16,7 +16,7 @@
                 </div>
                 <div class="container-fluid">
                     <div class="table-responsive col-lg-auto">
-                        <a href="products/create" class="btn btn-primary my-3"> Create new product</a>
+                        <a href="products/create" class="btn btn-primary my-3"> Create New Product</a>
                         <table class="table table-striped table-sm">
                             <thead>
                                 <tr>
@@ -24,6 +24,7 @@
                                     <th scope="col">Product Name</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Stock</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -34,6 +35,7 @@
                                     <td>{{ $detail->product_name }}</td>
                                     <td>{{ $detail->price }}</td>
                                     <td>{{ $detail->stock }}</td>
+                                    <td>{{ $detail->status }}</td>
                                     <td>
                                         <a href="/admin/products/{{ $detail->id }}"
                                             class="badge bg-info nav-link">Detail</a>
@@ -43,7 +45,7 @@
                                               @method('delete')
                                               @csrf
                                               <button class="badge bg-danger nav-link border-0" onclick="return confirm('Yakin Mau Hapus Buku? ')">Delete</button>
-                                        </form>
+                                            </form>
                                     </td>
                                 </tr>
                                 @endforeach

@@ -81,7 +81,7 @@ class DashboardProductController extends Controller
         $validateDetails = ([
             'product_id' => $lastIdProduct, 
             'category_id' => $request->input('category_id'),
-            'slug' =>$slug
+            // 'slug' =>$slug
             
         ]);
 
@@ -177,7 +177,17 @@ class DashboardProductController extends Controller
     public function destroy($id)
     {
         $detail = Product::find($id); 
-        $detail->delete();
+        if($detail->status == 1){
+            $detail->update([
+                'status' => 0
+            ]);
+        }elseif($detail->status == 0){
+            $detail->update([
+                'status' => 1
+            ]);
+        }
+        
+        // $detail->delete();
         // return ProductCategoriesDetails::destroy($detail->id);
 
         return redirect('/admin/products')->with('success', 'Post has been deleted!');

@@ -28,7 +28,7 @@
                         {!! $kategoris->description !!}
                     </article>
                     <div class="my-3 fs-5">
-                        <a href="/admin/dashboard"> Back to Products</a>
+                        <a href="/admin/kategori"> Back to Products</a>
                     </div>
                 </div>
             </div>

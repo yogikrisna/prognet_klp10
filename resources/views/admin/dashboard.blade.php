@@ -37,8 +37,8 @@
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <script>
     
+    var kredits = ['{{$january}}','{{$february}}','{{$march}}','{{$april}}','{{$may}}','{{$june}}','{{$july}}','{{$august}}','{{$september}}','{{$october}}','{{$november}}','{{$december}}'];
     var debits = [0,0,0,0,0,0,0,0,0,0,0,0];
-    var kredits = [0,0,0,0,0,0,0,0,0,0,0,0];
    Highcharts.chart('container', {
     chart: {
         type: 'spline'
