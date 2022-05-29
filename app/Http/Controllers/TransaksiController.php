@@ -261,6 +261,6 @@ class TransaksiController extends Controller
                 ]);
         
         return redirect('/cartTransaksi');
-        // return $transaction;
+       
     }
 }
