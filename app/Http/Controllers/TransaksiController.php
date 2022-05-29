@@ -65,6 +65,7 @@ class TransaksiController extends Controller
 
         $user->notify(new UserNotification ('Bukti Bayar Terkirim'));
         $admin->notify(new AdminNotification ('Terdapat Bukti Bayar Baru'));
+        
         return back();
         // return $transaksi;
     }
